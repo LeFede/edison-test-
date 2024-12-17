@@ -1,6 +1,9 @@
 # build output
 dist/
 
+aws-amplify
+.amplify-hosting
+
 # generated types
 .astro/
 
