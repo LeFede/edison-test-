@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install # Instala todas las dependencias
+    build:
+      commands:
+        - env > .env # Crea el archivo .env
+        - npm run build # Ejecuta el script de construcciÃ³n
+        - rm -rf node_modules # Elimina node_modules
+        - npm install --omit=dev # Instala solo las dependencias de producciÃ³n
+        - mv node_modules .amplify-hosting/compute/default/ # Mueve node_modules
+        - mv .env .amplify-hosting/compute/default/.env # Mueve .env
+  artifacts:
+    baseDirectory: .amplify-hosting/compute/default
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
