@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const currentTime = new Date().toLocaleTimeString();
+import Defer from '../components/Defer.astro';
 
+const currentTime = new Date().toLocaleTimeString();
 ---
 
 <Layout>
@@ -9,8 +10,8 @@ const currentTime = new Date().toLocaleTimeString();
   {currentTime}
   <br/>
   <!-- {JSON.stringify(data.results[0].name.first)} -->
-  <!-- <A server:defer> -->
-  <!--   <p slot="fallback">cargando...</p> -->
-  <!-- </A> -->
+  <Defer server:defer>
+    <p slot="fallback">cargando...</p>
+  </Defer>
 </Layout>
 
