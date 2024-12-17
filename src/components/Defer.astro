@@ -4,7 +4,7 @@
 export const prerender = false
 // import { wait } from '@volpe/utils';
 // import Layout from '../layouts/Layout.astro';
-// import axios from "axios"
+import axios from "axios"
 
 const currentTime = new Date().toLocaleTimeString();
 Astro.response.headers.set('Cache-Control', 'public, maxage=10, s-maxage=10, stale-while-revalidate=5');
@@ -13,18 +13,18 @@ Astro.response.headers.set('Cache-Control', 'public, maxage=10, s-maxage=10, sta
 // const data = await res.json()
 // await wait(1)
 
-// const api_qa = axios.create({
-//   baseURL: "https://qa.api.somosedison.com",
-//   headers: {
-//     Authorization: "l33hDPtjJK0emSag5NcJKdrJbWXUFpORTSih",
-//   },
-// });
+const api_qa = axios.create({
+  baseURL: "https://qa.api.somosedison.com",
+  headers: {
+    Authorization: "l33hDPtjJK0emSag5NcJKdrJbWXUFpORTSih",
+  },
+});
 
-// let res2;
-// let course1 
-  // res2 = await api_qa.get(`/courses/market/2a748937-dfff-419c-908e-fa16856e19fe`)
-  // course1 = res2.data[0]
-// const {picture} = course1.users[0].user
+let res2;
+let course1 
+  res2 = await api_qa.get(`/courses/market/2a748937-dfff-419c-908e-fa16856e19fe`)
+  course1 = res2.data[0]
+const {picture} = course1.users[0].user
 
 ---
 
@@ -33,5 +33,5 @@ AAAA
 {currentTime}
 <br/>
 <!-- {JSON.stringify(data.results[0].name.first)} -->
-<!-- {picture} -->
-<!-- <img src={`http:` + picture}/> -->
+{picture}
+<img src={`http:` + picture}/>

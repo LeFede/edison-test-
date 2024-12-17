@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "astro": "^5.0.9",
-    "astro-aws-amplify": "^0.1.0"
+    "astro-aws-amplify": "^0.1.0",
+    "axios": "^1.7.9"
   }
 }
