@@ -10,8 +10,6 @@ const currentTime = new Date().toLocaleTimeString();
   {currentTime}
   <br/>
   <!-- {JSON.stringify(data.results[0].name.first)} -->
-  <Defer server:defer>
-    <p slot="fallback">cargando...</p>
-  </Defer>
+  <Defer/>
 </Layout>
 
