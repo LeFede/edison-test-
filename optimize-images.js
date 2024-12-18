@@ -35,38 +35,43 @@ if (!fs.existsSync(outputDir)) {
       for (const user of course.users) {
         const { picture, id: userId } = user.user;
 
-        // Generar un nombre único para cada imagen
-        const outputImagePath = path.join(outputDir, `${userId}.webp`);
+        // Definir los tamaños de las imágenes (1x, 2x, 3x)
+        const sizes = [36, 72, 108]; // 1x, 2x, 3x
 
-        // Verificar si la imagen ya existe
-        if (fs.existsSync(outputImagePath)) {
-          console.log(`Imagen ya existe: ${outputImagePath}`);
-          continue;
-        }
+        for (let i = 0; i < sizes.length; i++) {
+          const size = sizes[i];
+          const outputImagePath = path.join(outputDir, `${userId}_${i + 1}x.webp`);
 
-        try {
-          // Descargar la imagen desde la URL
-          const imageResponse = await axios({
-            url: picture.startsWith("http") ? picture : `http:${picture}`,
-            method: "GET",
-            responseType: "arraybuffer",
-          });
+          // Verificar si la imagen ya existe
+          if (fs.existsSync(outputImagePath)) {
+            console.log(`Imagen ya existe: ${outputImagePath}`);
+            continue;
+          }
 
-          // Procesar la imagen con sharp
-          await sharp(Buffer.from(imageResponse.data))
-            .resize(36, 36, {
-              fit: "cover",
-              position: "center",
-            })
-            .webp({ quality: 80 })
-            .toFile(outputImagePath);
+          try {
+            // Descargar la imagen desde la URL
+            const imageResponse = await axios({
+              url: picture.startsWith("http") ? picture : `http:${picture}`,
+              method: "GET",
+              responseType: "arraybuffer",
+            });
 
-          console.log(`Imagen optimizada y guardada: ${outputImagePath}`);
-        } catch (error) {
-          console.error(
-            `Error al procesar la imagen para el usuario ${userId}:`,
-            error,
-          );
+            // Procesar la imagen con sharp y redimensionarla según el tamaño
+            await sharp(Buffer.from(imageResponse.data))
+              .resize(size, size, {
+                fit: "cover",
+                position: "center",
+              })
+              .webp({ quality: 80 })
+              .toFile(outputImagePath);
+
+            console.log(`Imagen optimizada y guardada: ${outputImagePath}`);
+          } catch (error) {
+            console.error(
+              `Error al procesar la imagen para el usuario ${userId} en tamaño ${size}x:`,
+              error,
+            );
+          }
         }
       }
     }

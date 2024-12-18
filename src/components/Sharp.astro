@@ -25,13 +25,13 @@ try {
     for (const user of course.users) {
       const { id: userId } = user.user;
 
-      const outputImagePath = path.join(outputDir, `${userId}.webp`);
+      const outputImagePath = path.join(outputDir, `${userId}_1x.webp`);
 
       if (fs.existsSync(outputImagePath)) {
-        optimizedImages.push(`/optimized-images/${userId}.webp`);
+        optimizedImages.push(`/optimized-images/${userId}_1x.webp`);
         continue;
       }
-      optimizedImages.push(`/optimized-images/${userId}.webp`);
+      optimizedImages.push(`/optimized-images/${userId}_1x.webp`);
     }
   }
 } catch (error) {
@@ -41,13 +41,19 @@ try {
 <!-- HTML generado por Astro -->
 <h1>Imágenes Optimizadas</h1>
 <div>
-  {optimizedImages.map((src) => (
-    <Image 
+  {optimizedImages.map((src) => {
+    const srcset = [
+      `${src.replace('_1x.webp', '_1x.webp')} 1x`,
+      `${src.replace('_1x.webp', '_2x.webp')} 2x`,
+      `${src.replace('_1x.webp', '_3x.webp')} 3x`
+    ].join(', ');
+    return <Image 
       src={src} 
       alt="Imagen optimizada" 
       width={36} 
       height={36}
+      srcset={srcset}
       loading={"eager"}
     />
-  ))}
+  })}
 </div>
