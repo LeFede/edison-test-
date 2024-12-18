@@ -3,6 +3,7 @@ import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 import axios from "axios";
+import {Image} from "astro:assets";
 
 // Crear instancia de Axios
 const api_qa = axios.create({
@@ -41,6 +42,13 @@ try {
 <h1>Imágenes Optimizadas</h1>
 <div>
   {optimizedImages.map((src) => (
-    <img src={src} alt="Imagen optimizada" />
+    <Image 
+      src={src} 
+      alt="Imagen optimizada" 
+      width={36} 
+      height={36}
+      loading={"eager"}
+      sizes="(max-width: 600px) 100vw, 50vw"
+    />
   ))}
 </div>
