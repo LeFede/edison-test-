@@ -3,24 +3,20 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install # Instala todas las dependencias
+        - npm install
     build:
       commands:
-        - env > .env # Crea el archivo .env
+        - env > .env
         - npm run optimize-images
-        - npm run build # Ejecuta el script de construcción
-        - rm -rf node_modules # Elimina node_modules
-        - npm install --omit=dev # Instala solo las dependencias de producción
-        - mv node_modules .amplify-hosting/compute/default/ # Mueve node_modules
-        - mv .env .amplify-hosting/compute/default/.env # Mueve .env
-        - npm install -g brotli # Instalar Brotli (si no está instalado)
-        - |
-          for file in .amplify-hosting/compute/default/*; do
-            if [ -f "$file" ]; then
-              brotli "$file" --output "$file.br" --quality=11
-            fi
-          done
-
+        - npm run build
+        - rm -rf node_modules
+        - npm install --omit=dev
+        - mv node_modules .amplify-hosting/compute/default/
+        - mv .env .amplify-hosting/compute/default/.env
+    postBuild:
+      commands:
+        - echo "Content-Type: text/css; charset=utf-8" > .amplify-hosting/compute/default/static/css/.htaccess
+        - echo "AddOutputFilterByType DEFLATE text/css" >> .amplify-hosting/compute/default/static/css/.htaccess
   artifacts:
     baseDirectory: .amplify-hosting/compute/default
     files:
