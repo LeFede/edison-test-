@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "node optimize-images.js && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "oi": "node optimize-images.js"
+    "optimize-images": "node optimize-images.js"
   },
   "dependencies": {
     "astro": "^5.0.9",

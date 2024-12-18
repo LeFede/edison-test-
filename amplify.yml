@@ -7,7 +7,7 @@ frontend:
     build:
       commands:
         - env > .env # Crea el archivo .env
-        - npm run optimize-images # Ejecuta el script de optimización
+        - npm run optimize-images
         - npm run build # Ejecuta el script de construcciÃ³n
         - rm -rf node_modules # Elimina node_modules
         - npm install --omit=dev # Instala solo las dependencias de producciÃ³n
