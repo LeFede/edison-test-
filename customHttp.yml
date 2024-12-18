@@ -1,0 +1,8 @@
+version: 1
+backend:
+  api:
+    customHttp:
+      customHeaders:
+        - path: "/optimized-images/*"
+          headers:
+            Cache-Control: "public, max-age=31536000, immutable"
