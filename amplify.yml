@@ -13,6 +13,10 @@ frontend:
         - npm install --omit=dev # Instala solo las dependencias de producción
         - mv node_modules .amplify-hosting/compute/default/ # Mueve node_modules
         - mv .env .amplify-hosting/compute/default/.env # Mueve .env
+        - npm install -g gzip-cli # Instalar gzip-cli (si no está instalado)
+        - gzip -r .amplify-hosting/compute/default/ # Comprimir todos los archivos en el directorio de salida
+        - npm install -g brotli # Instalar Brotli (si no está instalado)
+        - brotli -r .amplify-hosting/compute/default/ --output-dir .amplify-hosting/compute/default/ --quality=11
   artifacts:
     baseDirectory: .amplify-hosting/compute/default
     files:
