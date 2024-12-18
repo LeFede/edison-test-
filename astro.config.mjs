@@ -1,12 +1,15 @@
 // astro.config.mjs
 import { defineConfig } from "astro/config";
 import awsAmplify from "astro-aws-amplify";
+import tailwind from "@astrojs/tailwind";
 // import react from "@astrojs/react";
 // import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
   // integrations: [react(), tailwind()],
-  output: "static", // output: 'hybrid'
+  // output: 'hybrid'
+  output: "static",
+
   adapter: awsAmplify(),
 
   image: {
@@ -15,4 +18,6 @@ export default defineConfig({
       "edison-s3.s3.us-east-1.amazonaws.com",
     ],
   },
+
+  integrations: [tailwind()],
 });

@@ -54,7 +54,10 @@ if (!fs.existsSync(outputDir)) {
 
           // Procesar la imagen con sharp
           await sharp(Buffer.from(imageResponse.data))
-            .resize(36)
+            .resize(36, 36, {
+              fit: "cover",
+              position: "center",
+            })
             .webp({ quality: 80 })
             .toFile(outputImagePath);
 
