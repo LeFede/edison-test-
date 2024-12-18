@@ -14,7 +14,13 @@ frontend:
         - mv node_modules .amplify-hosting/compute/default/ # Mueve node_modules
         - mv .env .amplify-hosting/compute/default/.env # Mueve .env
         - npm install -g brotli # Instalar Brotli (si no está instalado)
-        - brotli .amplify-hosting/compute/default/* --output .amplify-hosting/compute/default/ --quality=11
+        - |
+          for file in .amplify-hosting/compute/default/*; do
+            if [ -f "$file" ]; then
+              brotli "$file" --output "$file.br" --quality=11
+            fi
+          done
+
   artifacts:
     baseDirectory: .amplify-hosting/compute/default
     files:
