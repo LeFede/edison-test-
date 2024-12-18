@@ -3,20 +3,16 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install
+        - npm install # Instala todas las dependencias
     build:
       commands:
-        - env > .env
+        - env > .env # Crea el archivo .env
         - npm run optimize-images
-        - npm run build
-        - rm -rf node_modules
-        - npm install --omit=dev
-        - mv node_modules .amplify-hosting/compute/default/
-        - mv .env .amplify-hosting/compute/default/.env
-    postBuild:
-      commands:
-        - echo "Content-Type: text/css; charset=utf-8" > .amplify-hosting/compute/default/static/css/.htaccess
-        - echo "AddOutputFilterByType DEFLATE text/css" >> .amplify-hosting/compute/default/static/css/.htaccess
+        - npm run build # Ejecuta el script de construcción
+        - rm -rf node_modules # Elimina node_modules
+        - npm install --omit=dev # Instala solo las dependencias de producción
+        - mv node_modules .amplify-hosting/compute/default/ # Mueve node_modules
+        - mv .env .amplify-hosting/compute/default/.env # Mueve .env
   artifacts:
     baseDirectory: .amplify-hosting/compute/default
     files:
