@@ -12,5 +12,8 @@
     "astro": "^5.0.9",
     "astro-aws-amplify": "^0.1.0",
     "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2"
   }
 }
