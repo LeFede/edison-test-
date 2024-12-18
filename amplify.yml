@@ -8,9 +8,9 @@ frontend:
       commands:
         - env > .env # Crea el archivo .env
         - npm run optimize-images
-        - npm run build # Ejecuta el script de construcciÃ³n
+        - npm run build # Ejecuta el script de construcción
         - rm -rf node_modules # Elimina node_modules
-        - npm install --omit=dev # Instala solo las dependencias de producciÃ³n
+        - npm install --omit=dev # Instala solo las dependencias de producción
         - mv node_modules .amplify-hosting/compute/default/ # Mueve node_modules
         - mv .env .amplify-hosting/compute/default/.env # Mueve .env
   artifacts:
@@ -20,3 +20,9 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
+  rewrites:
+    - source: "/optimized-images/*"
+      target: "/optimized-images/:splat"
+      status: 200
+      headers:
+        Cache-Control: "public, max-age=31536000, immutable"
