@@ -12,58 +12,24 @@ const api_qa = axios.create({
   },
 });
 
-// Ruta base para las imágenes optimizadas
 const outputDir = path.resolve("./public/optimized-images");
 
-// Asegúrate de que el directorio de salida exista
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
-
-// Array para guardar las rutas optimizadas
 let optimizedImages = [];
 
 try {
-  // Obtener todos los cursos de la API
   const res = await api_qa.get(`/courses/market`);
   const courses = res.data;
 
-  // Procesar cada curso y cada usuario dentro del curso
   for (const course of courses) {
     for (const user of course.users) {
-      const { picture, id: userId } = user.user;
+      const { id: userId } = user.user;
 
-      // Definir un nombre único para cada imagen (por ejemplo, usando el userId)
       const outputImagePath = path.join(outputDir, `${userId}.webp`);
 
-      // Verificar si la imagen ya existe
       if (fs.existsSync(outputImagePath)) {
-        console.log(`Imagen ya existe: ${outputImagePath}`);
-        // Agregar la ruta pública de la imagen optimizada al array
         optimizedImages.push(`/optimized-images/${userId}.webp`);
-        continue; // Saltar al siguiente usuario
+        continue;
       }
-
-      try {
-        // Descargar la imagen desde la URL remota
-        const imageResponse = await axios({
-          url: picture.startsWith("http") ? picture : `http:${picture}`,
-          method: "GET",
-          responseType: "arraybuffer", // Descargar la imagen como buffer
-        });
-
-        // Procesar con sharp y guardar como WebP
-        await sharp(Buffer.from(imageResponse.data))
-          .resize(36) // Ajusta el tamaño
-          .webp({ quality: 80 }) // Convierte a formato WebP con calidad 80
-          .toFile(outputImagePath);
-
-        console.log(`Imagen optimizada y guardada: ${outputImagePath}`);
-      } catch (error) {
-        console.error(`Error al procesar la imagen para el usuario ${userId}:`, error);
-      }
-
-      // Agregar la ruta pública de la imagen optimizada al array
       optimizedImages.push(`/optimized-images/${userId}.webp`);
     }
   }
