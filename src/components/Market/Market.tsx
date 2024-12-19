@@ -10,9 +10,12 @@ const Market: React.FC<Props> = ({ courses }) => {
   useEffect(() => {
     const element = document.getElementById("marketSkeleton");
     if (element) {
-      element.remove();
+      // element.remove();
+      // Establecer las propiedades de estilo
+      element.style.visibility = "hidden";
+      element.style.zIndex = "-99";
     }
-  }, []);
+  }, []); // El efecto se ejecuta una vez cuando el componente se monta
 
   return (
     <section
