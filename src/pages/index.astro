@@ -55,7 +55,7 @@ let categories = allCategories?.filter((e: any) => e.academyId === academy?.id)
   <br/>
   
   <h1 class="h-[100px]">Imágenes Optimizadas</h1>
-  <Test/>
+  <Test server:defer/>
   <Market courses={courses} categories={categories}/>
 </Layout>
 
