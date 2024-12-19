@@ -1,4 +1,4 @@
-// mejor que 1 y 2
+/// Sirve para que PageInsights no se queje de la compresion
 
 import { defineMiddleware } from "astro:middleware";
 

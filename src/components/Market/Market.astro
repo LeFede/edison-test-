@@ -3,6 +3,7 @@
 import { type Course } from '../../env.d';
 import Card from '../Card/Card.tsx';
 import ClientMarket from "./Market.tsx"
+import Arrow from "./Arrow.svg"
 
 // Define las propiedades (props) que acepta este componente
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 // Destructura las propiedades
 const { courses } = Astro.props;
+const splitCourses = [...courses].splice(0,2)
 ---
 
 <section id="marketSkeleton" class="px-4 m-auto md:max-w-screen-lg lg:px-0 lg:grid lg:grid-cols-[100px_auto] absolute left-1/2 -translate-x-1/2 max-w-screen-lg w-full">
@@ -19,18 +21,31 @@ const { courses } = Astro.props;
   </aside>
   
   <div class="col-start-2">
-    <p class="text-4xl font-semibold">Todos los cursos</p>
-    <p class="text-xl">
+    <p class="text-4xl font-semibold mb-2 hidden lg:block">Todos los cursos</p>
+    <p class="text-xl mb-4 hidden lg:block">
       Explora todos nuestros cursos, liderados por los principales expertos de cada industria.
     </p>
-    <input type="text" class="border p-2" disabled="true" aria-label="buscador de cursos"/>
+    <input type="text" disabled="true" aria-label="buscador de cursos"
+      placeholder="Busca tu curso..."
+      class="
+        mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:mb-10
+        "
+    />
+    <hr class="h-0.5 bg-gray_300 my-6 lg:hidden" />
   </div>
   
   <div class="grid gap-4 grid-cols-market col-start-2">
-    {courses.map((course) => (
+    {splitCourses.map((course) => (
       <Card course={course} />
     ))}
   </div>
+
+  <button
+    class="w-full text-gray_25 font-medium text-lg flex justify-center py-1.5 gap-x-2 rounded-lg mt-6 mb-12 col-start-2"
+    style={{ backgroundColor: "var(--main-color)" }}
+  >
+    Todos los cursos <Arrow />
+  </button>
 </section>
 
 <ClientMarket courses={courses} client:visible/>

@@ -129,3 +129,59 @@ export interface Config {
   createdAt: string;
   updatedAt: any;
 }
+
+interface Seo {
+  id: number;
+  academyId: number;
+  title: string;
+  description: string;
+  keywords: string;
+  socialPreview: string;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+interface Style {
+  id: number;
+  academyId: number;
+  logo: string;
+  mainColor: string;
+  secondaryColor: string;
+  heroDesk: string;
+  heroMobile: string;
+  favicon: string;
+  typography: string | null;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+interface Config {
+  id: number;
+  academyId: number;
+  marketplace: boolean;
+  platform: string;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+interface Domain {
+  id: number;
+  academyId: number;
+  active: boolean;
+  url: string;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+export interface IAcademy {
+  id: number;
+  uuid: string;
+  name: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string | null;
+  seo: Seo;
+  style: Style;
+  config: Config;
+  domain: Domain;
+}

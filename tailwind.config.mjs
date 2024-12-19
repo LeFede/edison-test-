@@ -7,7 +7,9 @@ export default {
         market: "repeat(auto-fill, minmax(min(270px, 450px), 1fr))",
       },
       colors: {
-        grey_300: "#D0D5DD",
+        gray_300: "#D0D5DD",
+        gray_100: "#F2F4F7",
+        gray_25: "#FCFCFD",
       },
       fontFamily: {
         inter: "Inter Variable",

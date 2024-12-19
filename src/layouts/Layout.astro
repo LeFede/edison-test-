@@ -1,6 +1,15 @@
 ---
 import Meta from "../components/Meta.astro"
 import "@fontsource-variable/inter"
+import type { IAcademy } from "../env"
+
+interface Props {
+  academy: IAcademy;
+}
+
+const {academy} = Astro.props
+const {mainColor, secondaryColor} = academy.style
+
 ---
 
 <!doctype html>
@@ -14,7 +23,10 @@ import "@fontsource-variable/inter"
       url="https://avatars.githubusercontent.com/u/134017871?s=48&v=4"
     />
 	</head>
-	<body class="font-inter">
+  <body 
+    class="font-inter bg-gray_25" 
+    style={`--main-color: ${mainColor}; --secondary-color: ${secondaryColor};`}
+  >
 		<slot />
 	</body>
 </html>
