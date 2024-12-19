@@ -16,11 +16,11 @@ if (err || !data) {
 }
 
 const { AUTHORIZATION, TAL } = data;
-for (let a in Array.from({ length: 10 })) {
+for (let _ in Array.from({ length: 10 })) {
   console.log(TAL);
 }
 
-const api_prod = axios.create({
+const _api_prod = axios.create({
   baseURL: "https://api.somosedison.com",
   headers: {
     Authorization: AUTHORIZATION,
@@ -34,7 +34,7 @@ const api_qa = axios.create({
   },
 });
 
-const api_local = axios.create({
+const _api_local = axios.create({
   baseURL: "http://localhost:3001/",
   headers: {
     Authorization: AUTHORIZATION,

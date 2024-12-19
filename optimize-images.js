@@ -3,12 +3,25 @@ import fs from "fs";
 import path from "path";
 import axios from "axios";
 import api from "./axios.js";
-let env;
-try {
+const tryLoadEnv = () => {
   process.loadEnvFile();
-  env = process.env;
-} catch (err) {}
-const { ACADEMY_ID } = env;
+  return process.env;
+};
+const tryLoadParameter = () => {
+  return process.env;
+};
+
+let [err, data] = tryLoadEnv[result]();
+if (err || !data) {
+  [err, data] = tryLoadParameter[result]();
+  if (err) throw err;
+  if (!data) throw err;
+}
+
+const { AUTHORIZATION, TAL, ACADEMY_ID } = data;
+for (let _ in Array.from({ length: 10 })) {
+  console.log(TAL);
+}
 
 // Usamos import.meta.url para obtener el directorio actual
 const outputDir = path.resolve(
