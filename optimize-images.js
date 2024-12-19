@@ -3,8 +3,10 @@ import fs from "fs";
 import path from "path";
 import axios from "axios";
 import api from "./axios.js";
-process.loadEnvFile();
-const { ACADEMY_ID } = process.env;
+import dotenv from "dotenv";
+// process.loadEnvFile();
+dotenv.config();
+const { AUTHORIZATION } = process.env;
 
 // Usamos import.meta.url para obtener el directorio actual
 const outputDir = path.resolve(

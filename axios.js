@@ -1,5 +1,7 @@
 import axios from "axios";
-process.loadEnvFile();
+import dotenv from "dotenv";
+// process.loadEnvFile();
+dotenv.config();
 const { AUTHORIZATION } = process.env;
 
 const api_prod = axios.create({
