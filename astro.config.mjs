@@ -10,9 +10,9 @@ export default defineConfig({
   // integrations: [react(), tailwind()],
   // output: 'hybrid'
   output: "static",
-  server: {
-    port: 3001,
-  },
+  // server: {
+  //   port: 3001,
+  // },
 
   adapter: awsAmplify(),
 

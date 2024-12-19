@@ -28,12 +28,15 @@ if (!fs.existsSync(outputDir)) {
     console.log("Iniciando la optimización de imágenes...");
 
     // Obtener todos los cursos de la API
-    const res = await api_qa.get(`/courses/market`);
+    const res = await api_qa.get(
+      `/courses/market/2a748937-dfff-419c-908e-fa16856e19fe`,
+    );
     const courses = res.data;
 
     for (const course of courses) {
       for (const user of course.users) {
         const { picture, id: userId } = user.user;
+        console.log(userId);
 
         // Definir los tamaños de las imágenes (1x, 2x, 3x)
         const sizes = [36, 72, 108]; // 1x, 2x, 3x
