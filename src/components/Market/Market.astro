@@ -1,0 +1,36 @@
+---
+// Importa los tipos y el componente Card
+import { type Course } from '../../env.d';
+import Card from '../Card/Card.tsx';
+import ClientMarket from "./Market.tsx"
+
+// Define las propiedades (props) que acepta este componente
+interface Props {
+  courses: Course[];
+}
+
+// Destructura las propiedades
+const { courses } = Astro.props;
+---
+
+<section id="marketSkeleton" class="px-4 m-auto md:max-w-screen-lg lg:px-0 lg:grid lg:grid-cols-[100px_auto]">
+  <aside class="row-span-full col-span-1 col-start-1">
+    <p>Hola</p>
+  </aside>
+  
+  <div class="col-start-2">
+    <p class="text-4xl font-semibold">Todos los cursos</p>
+    <p class="text-xl">
+      Explora todos nuestros cursos, liderados por los principales expertos de cada industria.
+    </p>
+    <input type="text" class="border p-2" />
+  </div>
+  
+  <div class="grid gap-4 grid-cols-market col-start-2">
+    {courses.map((course) => (
+      <Card course={course} />
+    ))}
+  </div>
+</section>
+
+<ClientMarket courses={courses} client:only="react"/>

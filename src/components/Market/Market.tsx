@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { Course } from "../../env.d";
 import Card from "../Card/Card";
 
@@ -6,6 +7,13 @@ interface Props {
 }
 
 const Market: React.FC<Props> = ({ courses }) => {
+  useEffect(() => {
+    const element = document.getElementById("marketSkeleton");
+    if (element) {
+      element.remove();
+    }
+  }, []);
+
   return (
     <section
       className="px-4 m-auto 
@@ -22,11 +30,11 @@ const Market: React.FC<Props> = ({ courses }) => {
           Explora todos nuestros cursos, liderados por los principales expertos
           de cada industria.
         </p>
-        <input type="text" />
+        <input type="text" className="border p-2" />
       </div>
       <div className="grid gap-4 grid-cols-market col-start-2">
         {courses.map((course) => (
-          <Card course={course} />
+          <Card key={course.id} course={course} />
         ))}
       </div>
     </section>

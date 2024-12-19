@@ -36,7 +36,6 @@ if (!fs.existsSync(outputDir)) {
     for (const course of courses) {
       for (const user of course.users) {
         const { picture, id: userId } = user.user;
-        console.log(userId);
 
         // Definir los tamaños de las imágenes (1x, 2x, 3x)
         const sizes = [36, 72, 108]; // 1x, 2x, 3x
