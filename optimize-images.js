@@ -2,14 +2,9 @@ import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 import axios from "axios";
-
-// Configuración de Axios para la API
-const api_qa = axios.create({
-  baseURL: "https://qa.api.somosedison.com",
-  headers: {
-    Authorization: "l33hDPtjJK0emSag5NcJKdrJbWXUFpORTSih",
-  },
-});
+import api from "./axios.js";
+process.loadEnvFile();
+const { ACADEMY_ID } = process.env;
 
 // Usamos import.meta.url para obtener el directorio actual
 const outputDir = path.resolve(
@@ -28,9 +23,7 @@ if (!fs.existsSync(outputDir)) {
     console.log("Iniciando la optimización de imágenes...");
 
     // Obtener todos los cursos de la API
-    const res = await api_qa.get(
-      `/courses/market/2a748937-dfff-419c-908e-fa16856e19fe`,
-    );
+    const res = await api.get(`/courses/market/${ACADEMY_ID}`);
     const courses = res.data;
 
     for (const course of courses) {

@@ -3,6 +3,9 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
+      maxWidth: {
+        container: "1100px",
+      },
       gridTemplateColumns: {
         market: "repeat(auto-fill, minmax(min(270px, 450px), 1fr))",
       },
@@ -10,6 +13,8 @@ export default {
         gray_300: "#D0D5DD",
         gray_100: "#F2F4F7",
         gray_25: "#FCFCFD",
+        gray_500: "#667085",
+        gray_900: "#101828",
         anuncios_500: "#1240B7",
         naranja_500: "#FF5500",
         error_600: "#D92D20",

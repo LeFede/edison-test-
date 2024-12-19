@@ -1,12 +1,21 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import awsAmplify from "astro-aws-amplify";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
-
 import compressor from "astro-compressor";
 
 export default defineConfig({
   integrations: [react(), tailwind(), compressor()],
   adapter: awsAmplify(),
-  output: "static", // Asegúrate de que la salida esté en la carpeta estática
+  output: "server", // Asegúrate de que la salida esté en la carpeta estática
+
+  env: {
+    schema: {
+      ACADEMY_ID: envField.string({
+        context: "server",
+        access: "secret",
+        optional: false,
+      }),
+    },
+  },
 });

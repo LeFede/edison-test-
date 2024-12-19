@@ -12,7 +12,7 @@ interface Props {
   categories: Category[]
 }
 
-const { courses } = Astro.props;
+const { courses, categories } = Astro.props;
 
 let filteredCourses = courses
 filteredCourses = courses.sort((a, b) => {
@@ -35,9 +35,61 @@ const splitCourses = [...filteredCourses].splice(0,FIRST_SHOWED)
 
 ---
 
-<section id="marketSkeleton" class="px-4 m-auto md:max-w-screen-lg lg:px-0 lg:grid lg:grid-cols-[100px_auto] absolute left-1/2 -translate-x-1/2 max-w-screen-lg w-full">
-  <aside class="row-span-full col-span-1 col-start-1">
-    <p>Todos los cursos</p>
+<section id="marketSkeleton" class="
+  px-4 m-auto absolute left-1/2 -translate-x-1/2 w-full
+  md:max-w-container 
+  lg:px-0 lg:grid lg:grid-cols-[150px_auto] lg:gap-x-14
+
+  ">
+  <aside class="col-span-1 col-start-1 row-span-5">
+    <p class="font-medium mb-4">Todos los cursos</p>
+    <ul class="flex flex-col gap-2 mb-4">
+      <li class="font-medium text-gray_500 border-gray_500 border-b border-opacity-35 hover:text-gray_900 hover:cursor-pointer hover:border-opacity-100">
+        Categorías
+      </li>
+      {categories.map((category) => {
+        return (
+          <li
+            class="text-wrap line-clamp-1 text-sm"
+            title={category.value}
+          >
+            {category.value}
+          </li>
+        );
+      })}
+    </ul>
+
+    <ul class="flex flex-col gap-2 mb-4">
+      <li class="font-medium text-gray_500 border-gray_500 border-b border-opacity-35 hover:text-gray_900 hover:cursor-pointer hover:border-opacity-100">
+        Duración
+      </li>
+      {categories.map((category) => {
+        return (
+          <li
+            class="text-wrap line-clamp-1 text-sm"
+            title={category.value}
+          >
+            {category.value}
+          </li>
+        );
+      })}
+    </ul>
+
+    <ul class="flex flex-col gap-2 mb-4">
+      <li class="font-medium text-gray_500 border-gray_500 border-b border-opacity-35 hover:text-gray_900 hover:cursor-pointer hover:border-opacity-100">
+        Modalidad
+      </li>
+      {categories.map((category) => {
+        return (
+          <li
+            class="text-wrap line-clamp-1 text-sm"
+            title={category.value}
+          >
+            {category.value}
+          </li>
+        );
+      })}
+    </ul>
   </aside>
   
   <div class="col-start-2">
@@ -60,12 +112,14 @@ const splitCourses = [...filteredCourses].splice(0,FIRST_SHOWED)
     ))}
   </div>
 
-  <button
-    class="w-full text-gray_25 font-medium text-lg flex justify-center py-1.5 gap-x-2 rounded-lg mt-6 mb-12 col-start-2"
-    style={{ backgroundColor: "var(--main-color)" }}
-  >
-    Todos los cursos <Arrow />
-  </button>
+  {courses.length > FIRST_SHOWED && (
+    <button
+      class="w-full text-gray_25 font-medium text-lg flex justify-center py-1.5 gap-x-2 rounded-lg mt-6 mb-12 col-start-2"
+      style={{ backgroundColor: "var(--main-color)" }}
+    >
+      Todos los cursos <Arrow />
+    </button>
+  )}
 </section>
 
-<ClientMarket courses={filteredCourses} client:visible firstShowed={FIRST_SHOWED}/>
+<ClientMarket courses={filteredCourses} client:visible firstShowed={FIRST_SHOWED} categories={categories}/>
