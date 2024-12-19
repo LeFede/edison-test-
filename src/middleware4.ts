@@ -1,3 +1,4 @@
+// NO FUNCIONO
 import { defineMiddleware, sequence } from "astro:middleware";
 import "./compressionStream.js"; // polyfill CompressionStream - // remove this once Bun supports CompressionStream: https://github.com/oven-sh/bun/issues/1723
 
