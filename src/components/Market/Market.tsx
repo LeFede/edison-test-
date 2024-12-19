@@ -28,12 +28,14 @@ const Market: React.FC<Props> = ({ courses }) => {
         <p>Hola</p>
       </aside>
       <div className="col-start-2">
-        <p className="text-4xl font-semibold">Todos los cursos</p>
+        <label htmlFor="market-input" className="text-4xl font-semibold">
+          Todos los cursos
+        </label>
         <p className="text-xl">
           Explora todos nuestros cursos, liderados por los principales expertos
           de cada industria.
         </p>
-        <input type="text" className="border p-2" />
+        <input id="market-input" type="text" className="border p-2" />
       </div>
       <div className="grid gap-4 grid-cols-market col-start-2">
         {courses.map((course) => (

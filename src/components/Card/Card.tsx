@@ -22,10 +22,11 @@ const Card: React.FC<Props> = ({ course }) => {
     category,
   } = course;
   const { startTime } = events[0];
-  const { value: categoryName, htmlColor: categoryColor } = category;
+  let { value: categoryName, htmlColor: categoryColor } = category;
   const { isAsync } = config;
   const isAsyncText = isAsync ? "Curso grabado" : "Curso en vivo";
   const cardBackgroundAlpha = "10";
+  if (categoryColor == "#039855") categoryColor = "#037C46";
 
   return (
     <a
