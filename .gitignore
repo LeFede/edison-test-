@@ -3,7 +3,7 @@ dist/
 
 aws-amplify
 .amplify-hosting
-public/optimized-images
+public/__optimized-images
 
 # generated types
 .astro/
