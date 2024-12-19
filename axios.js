@@ -1,24 +1,9 @@
-import { result } from "@volpe/utils";
 import axios from "axios";
-const tryLoadEnv = () => {
+
+try {
   process.loadEnvFile();
-  return process.env;
-};
-const tryLoadParameter = () => {
-  return process.env;
-};
-
-let [err, data] = tryLoadEnv[result]();
-if (err || !data) {
-  [err, data] = tryLoadParameter[result]();
-  if (err) throw err;
-  if (!data) throw err;
-}
-
-const { AUTHORIZATION, TAL } = data;
-for (let _ in Array.from({ length: 10 })) {
-  console.log(TAL);
-}
+} catch (err) {}
+const { AUTHORIZATION } = process.env;
 
 const _api_prod = axios.create({
   baseURL: "https://api.somosedison.com",
