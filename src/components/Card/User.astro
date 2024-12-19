@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets";
+import type { User } from "../../env";
+interface Props {
+  user: User;	
+}
+const {user} = Astro.props
+const {userId, user: realUser} = user
+const {name, company, jobTitle} = realUser
+const srcset = [
+  `/__optimized-images/${userId}_1x.webp 1x`,
+  `/__optimized-images/${userId}_2x.webp 2x`,
+  `/__optimized-images/${userId}_3x.webp 3x`,
+].join(', ');
+---
+<div class="col-span-4 grid grid-cols-[36px_auto] gap-x-4 grid-rows-[auto_auto] place-self-start gap-y-1">
+  <Image 
+    src={`/__optimized-images/${userId}_1x.webp`} 
+    alt="Imagen optimizada" 
+    width={36} 
+    height={36}
+    srcset={srcset}
+    loading={"lazy"}
+    class="rounded-full row-span-2"
+  />
+  <p class="line-clamp-2 leading-6 font-semibold">{name}</p>
+  <p class="line-clamp-2 text-sm leading-5">{jobTitle} {company}</p>
+</div>

@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import awsAmplify from "astro-aws-amplify";
 import tailwind from "@astrojs/tailwind";
+import react from "@astrojs/react";
 // import react from "@astrojs/react";
 // import tailwind from "@astrojs/tailwind";
 
@@ -9,6 +10,9 @@ export default defineConfig({
   // integrations: [react(), tailwind()],
   // output: 'hybrid'
   output: "static",
+  server: {
+    port: 3001,
+  },
 
   adapter: awsAmplify(),
 
@@ -19,5 +23,5 @@ export default defineConfig({
     ],
   },
 
-  integrations: [tailwind()],
+  integrations: [tailwind(), react()],
 });

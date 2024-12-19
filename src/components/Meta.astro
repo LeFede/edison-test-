@@ -1,0 +1,72 @@
+---
+import { z } from 'astro/zod';
+import { result, type Result } from '@volpe/utils';
+
+const customErrorMap: z.ZodErrorMap = (_, ctx) => {
+  return { message: `${JSON.stringify(_.path)} ${JSON.stringify(ctx)} at Meta component"` }
+};
+
+z.setErrorMap(customErrorMap);
+
+export interface Props {
+  title: string;
+  description: string;
+  image: string;
+  favicon: string;
+  url: string;
+}
+
+const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|svg|webp)$/i;
+const faviconExtensions = /\.(ico|png|jpg|jpeg|svg)$/i;
+
+const propsSchema = z.strictObject({
+  title: z.string(),
+  description: z.string(),
+  image: z.string().regex(imageExtensions, {
+    message: "Invalid image field. Image must end with .jpg, .jpeg, .png, .gif, .bmp, .svg, or .webp."
+  }),
+  favicon: z.string().regex(faviconExtensions, {
+    message: "Invalid favicon field. Favicon must end with .ico, .png, .jpg, or .jpeg."
+  }),
+  url: z.string().url()
+});
+
+const props = {
+  title: Astro.props.title,
+  description: Astro.props.description,
+  image: Astro.props.image,
+  favicon: Astro.props.favicon,
+  url: Astro.props.url 
+};
+
+const [err, validatedProps] = propsSchema.parse[result](props) as Result<Props, z.ZodError>
+
+if (err) throw err
+if (!validatedProps) throw new Error(`props cant be null`)
+
+---
+
+<meta charset="UTF-8" />        
+<link id="favicon" rel="icon" type="image/svg+xml" href={validatedProps.favicon} />
+<!-- <meta name="color-scheme" content="light dark" /> -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Global -->
+<title>{validatedProps.title}</title>
+<meta name="description" content={validatedProps.description}>
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content={validatedProps.url}>
+<meta property="og:type" content="website">
+<meta property="og:title" content={validatedProps.title}>
+<meta property="og:description" content={validatedProps.description}>
+<meta property="og:image" content={validatedProps.image}>
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content={validatedProps.url}>
+<meta name="twitter:title" content={validatedProps.title}>
+<meta name="twitter:description" content={validatedProps.description}>
+<meta name="twitter:image" content={validatedProps.image}>
+

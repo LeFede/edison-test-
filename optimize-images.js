@@ -15,7 +15,7 @@ const api_qa = axios.create({
 const outputDir = path.resolve(
   new URL(".", import.meta.url).pathname,
   "public",
-  "optimized-images",
+  "__optimized-images",
 );
 
 // Asegúrate de que el directorio de salida exista
@@ -40,7 +40,10 @@ if (!fs.existsSync(outputDir)) {
 
         for (let i = 0; i < sizes.length; i++) {
           const size = sizes[i];
-          const outputImagePath = path.join(outputDir, `${userId}_${i + 1}x.webp`);
+          const outputImagePath = path.join(
+            outputDir,
+            `${userId}_${i + 1}x.webp`,
+          );
 
           // Verificar si la imagen ya existe
           if (fs.existsSync(outputImagePath)) {

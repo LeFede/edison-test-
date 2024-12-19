@@ -1,11 +1,9 @@
 ---
-import sharp from "sharp";
-import fs from "fs";
-import path from "path";
-import axios from "axios";
-import {Image} from "astro:assets";
+import axios, { type AxiosResponse } from "axios";
+import { aResult, type Result } from "@volpe/utils";
+import {type Course} from "../env.d"
+import Card from "./Card/Card.astro";
 
-// Crear instancia de Axios
 const api_qa = axios.create({
   baseURL: "https://qa.api.somosedison.com",
   headers: {
@@ -13,47 +11,16 @@ const api_qa = axios.create({
   },
 });
 
-const outputDir = path.resolve("./public/optimized-images");
+const [err, axiosResponse] = await api_qa.get[aResult](`/courses/market/ffde42cb-1588-4928-8dd6-330b02ff26df`) as Result<AxiosResponse<Course[]>>;
 
-let optimizedImages = [];
+if (err) throw err
+if (!axiosResponse) throw err
 
-try {
-  const res = await api_qa.get(`/courses/market`);
-  const courses = res.data;
+const {data: courses} = axiosResponse
 
-  for (const course of courses) {
-    for (const user of course.users) {
-      const { id: userId } = user.user;
-
-      const outputImagePath = path.join(outputDir, `${userId}_1x.webp`);
-
-      if (fs.existsSync(outputImagePath)) {
-        optimizedImages.push(`/optimized-images/${userId}_1x.webp`);
-        continue;
-      }
-      optimizedImages.push(`/optimized-images/${userId}_1x.webp`);
-    }
-  }
-} catch (error) {
-  console.error("Error al obtener los cursos:", error);
-}
 ---
 <!-- HTML generado por Astro -->
 <h1>Imágenes Optimizadas</h1>
-<div>
-  {optimizedImages.map((src) => {
-    const srcset = [
-      `${src.replace('_1x.webp', '_1x.webp')} 1x`,
-      `${src.replace('_1x.webp', '_2x.webp')} 2x`,
-      `${src.replace('_1x.webp', '_3x.webp')} 3x`
-    ].join(', ');
-    return <Image 
-      src={src} 
-      alt="Imagen optimizada" 
-      width={36} 
-      height={36}
-      srcset={srcset}
-      loading={"eager"}
-    />
-  })}
-</div>
+{courses.map(course => {
+  return <Card course={course} />
+})}
