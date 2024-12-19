@@ -26,3 +26,8 @@ frontend:
       status: 200
       headers:
         Cache-Control: "public, max-age=31536000, immutable"
+  headers:
+    - source: "/**"
+      headers:
+        - key: "Accept-Encoding"
+          value: "gzip, compress, br"
