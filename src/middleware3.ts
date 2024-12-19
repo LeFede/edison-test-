@@ -1,3 +1,5 @@
+// mejor que 1 y 2
+
 import { defineMiddleware } from "astro:middleware";
 
 export const onRequest = defineMiddleware(async ({ cookies, locals }, next) => {
