@@ -25,6 +25,7 @@
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2"
+    "@types/node": "^22.10.2",
+    "compression-webpack-plugin": "^11.1.0"
   }
 }
