@@ -6,14 +6,15 @@ import Arrow from "./Arrow.svg";
 
 interface Props {
   courses: Course[];
+  firstShowed: number;
 }
 
-const Market: React.FC<Props> = ({ courses }) => {
+const Market: React.FC<Props> = ({ courses, firstShowed = 10 }) => {
   const [showAllCourses, setShowAllCourses] = useState(false);
 
   const splitCourses = [...courses].splice(
     0,
-    showAllCourses ? courses.length : 2,
+    showAllCourses ? courses.length : firstShowed,
   );
 
   useEffect(() => {

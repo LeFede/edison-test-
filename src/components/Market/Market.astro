@@ -6,6 +6,8 @@ import ClientMarket from "./Market.tsx"
 import Arrow from "./Arrow.svg"
 import timeLeft from '../../utils/timeLeft';
 
+const FIRST_SHOWED = 9
+
 // Define las propiedades (props) que acepta este componente
 interface Props {
   courses: Course[];
@@ -14,7 +16,8 @@ interface Props {
 // Destructura las propiedades
 const { courses } = Astro.props;
 
-let filteredCourses = courses.sort((a, b) => {
+let filteredCourses = courses
+filteredCourses = courses.sort((a, b) => {
   const getPriority = (course: any) => {
     if (!course.config.isAsync && !course.comingSoon) return 0; // Primero
     if (course.config.isAsync && !course.comingSoon) return 1; // Segundo
@@ -30,7 +33,7 @@ filteredCourses = filteredCourses.filter((course) => {
   return  timeLeft(time, "hours") > -24 
 });
 
-const splitCourses = [...filteredCourses].splice(0,2)
+const splitCourses = [...filteredCourses].splice(0,FIRST_SHOWED)
 
 ---
 
@@ -67,4 +70,4 @@ const splitCourses = [...filteredCourses].splice(0,2)
   </button>
 </section>
 
-<ClientMarket courses={filteredCourses} client:visible/>
+<ClientMarket courses={filteredCourses} client:visible firstShowed={FIRST_SHOWED}/>

@@ -55,7 +55,6 @@ const Card: React.FC<Props> = ({ course }) => {
   let { value: categoryName, htmlColor: categoryColor } = category;
   const { isAsync } = config;
   const isAsyncText = isAsync ? "Curso grabado" : "Curso en vivo";
-  const cardBackgroundAlpha = "10";
   if (categoryColor == "#039855") categoryColor = "#037C46";
 
   const estados = {
@@ -67,11 +66,11 @@ const Card: React.FC<Props> = ({ course }) => {
     ),
     QUICK_LEARN: (
       <div className="col-span-4 self-end text-sm flex gap-x-6 gap-y-2 items-center justify-between text-nowrap flex-wrap">
-        <div className="flex gap-1">
+        <div className="flex gap-1 items-center">
           <CalendarSvg />
           <p>{formatearFecha(startTime)}</p>
         </div>
-        <div className="flex gap-1 text-naranja_500 font-semibold">
+        <div className="flex gap-1 text-naranja_500 font-semibold items-center">
           <QuickLearnSvg />
           QUICK LEARN
         </div>
@@ -85,7 +84,7 @@ const Card: React.FC<Props> = ({ course }) => {
     ),
     COMIENZA_PRONTO: (
       <div className="col-span-4 self-end text-sm flex gap-x-6 gap-y-2 items-center justify-between text-nowrap flex-wrap">
-        <div className="flex gap-1">
+        <div className="flex gap-1 items-center">
           <CalendarSvg />
           <p>{formatearFecha(startTime)}</p>
         </div>
@@ -111,7 +110,7 @@ const Card: React.FC<Props> = ({ course }) => {
     ),
   } as const;
 
-  const estado = isAsync
+  let estado = isAsync
     ? type === "WORKSHOP"
       ? "QUICK_LEARN"
       : ""
@@ -119,7 +118,7 @@ const Card: React.FC<Props> = ({ course }) => {
       ? "PROXIMAMENTE"
       : timeLeft(startTime, "hours") < 0
         ? "ULTIMO_LLAMADO"
-        : type === "WORKSHOP"
+        : events.length == 1 || type == "WORKSHOP"
           ? "QUICK_LEARN"
           : stock <= 5
             ? "ULTIMOS_CUPOS"

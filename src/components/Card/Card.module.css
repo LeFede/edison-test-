@@ -22,7 +22,7 @@
   padding: 3px;
   box-sizing: content-box;
   border-radius: 0.5rem;
-  animation: 4s spin linear infinite;
+  animation: 8s spin linear infinite;
 }
 
 @keyframes spin {
