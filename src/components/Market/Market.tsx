@@ -35,7 +35,7 @@ const Market: React.FC<Props> = ({ courses, firstShowed = 10 }) => {
     "
     >
       <aside className="row-span-full col-span-1 col-start-1">
-        <p>Hola</p>
+        <p>Todos los cursos</p>
       </aside>
       <div className="col-start-2">
         <label

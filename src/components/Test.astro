@@ -1,0 +1,8 @@
+---
+export const prerender = false
+const currentTime = new Date().toLocaleTimeString();
+Astro.response.headers.set('Cache-Control', 'public, maxage=10, s-maxage=30, stale-while-revalidate=10');
+---
+
+{currentTime}
+

@@ -1,6 +1,5 @@
 ---
-// Importa los tipos y el componente Card
-import { type Course } from '../../env.d';
+import { type Category, type Course } from '../../env.d';
 import Card from '../Card/Card.tsx';
 import ClientMarket from "./Market.tsx"
 import Arrow from "./Arrow.svg"
@@ -8,12 +7,11 @@ import timeLeft from '../../utils/timeLeft';
 
 const FIRST_SHOWED = 9
 
-// Define las propiedades (props) que acepta este componente
 interface Props {
   courses: Course[];
+  categories: Category[]
 }
 
-// Destructura las propiedades
 const { courses } = Astro.props;
 
 let filteredCourses = courses
@@ -30,7 +28,7 @@ filteredCourses = courses.sort((a, b) => {
 filteredCourses = filteredCourses.filter((course) => {
   if (course.comingSoon) return true
   const time = course.events[0].startTime;
-  return  timeLeft(time, "hours") > -24 
+  return timeLeft(time, "hours") > -24 
 });
 
 const splitCourses = [...filteredCourses].splice(0,FIRST_SHOWED)
@@ -39,7 +37,7 @@ const splitCourses = [...filteredCourses].splice(0,FIRST_SHOWED)
 
 <section id="marketSkeleton" class="px-4 m-auto md:max-w-screen-lg lg:px-0 lg:grid lg:grid-cols-[100px_auto] absolute left-1/2 -translate-x-1/2 max-w-screen-lg w-full">
   <aside class="row-span-full col-span-1 col-start-1">
-    <p>Hola</p>
+    <p>Todos los cursos</p>
   </aside>
   
   <div class="col-start-2">

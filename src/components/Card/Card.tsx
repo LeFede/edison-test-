@@ -6,12 +6,12 @@ import CalendarSvg from "./CalendarSvg";
 import formatearFecha from "./formatearFecha";
 import User from "./User";
 import SoonSvg from "./SoonSvg";
-import { type Course } from "../../env.d";
 import QuickLearnSvg from "./QuickLearnSvg";
 import UltimosCuposSvg from "./UltimosCuposSvg";
-import timeLeft from "../../utils/timeLeft";
 import UltimoLlamadoSvg from "./UltimoLlamadoSvg";
 import s from "./Card.module.css";
+import timeLeft from "../../utils/timeLeft";
+import { type Course } from "../../env.d";
 
 function mixWithWhite(hexColor: string, ratio = 0.5) {
   // Asegúrate de que el color esté en formato hexadecimal
@@ -78,8 +78,14 @@ const Card: React.FC<Props> = ({ course }) => {
     ),
     ULTIMOS_CUPOS: (
       <p className="col-span-4 self-end text-sm flex gap-1 items-center justify-center text-error_600">
-        <UltimosCuposSvg />
-        Últimos cupos
+        <div className="flex gap-1 items-center">
+          <CalendarSvg />
+          <p>{formatearFecha(startTime)}</p>
+        </div>
+        <div className="flex gap-1 ">
+          <UltimosCuposSvg />
+          <span className="text-error_600 text-nowrap">Últimos cupos</span>
+        </div>
       </p>
     ),
     COMIENZA_PRONTO: (
@@ -108,6 +114,14 @@ const Card: React.FC<Props> = ({ course }) => {
         </div>
       </div>
     ),
+    NORMAL: (
+      <div className="col-span-4 self-end text-sm flex gap-x-6 gap-y-2 items-center justify-between text-nowrap flex-wrap">
+        <div className="flex gap-1">
+          <CalendarSvg />
+          <p>{formatearFecha(startTime)}</p>
+        </div>
+      </div>
+    ),
   } as const;
 
   let estado = isAsync
@@ -124,7 +138,7 @@ const Card: React.FC<Props> = ({ course }) => {
             ? "ULTIMOS_CUPOS"
             : timeLeft(startTime) < 14
               ? "COMIENZA_PRONTO"
-              : "";
+              : "NORMAL";
 
   return (
     <a
