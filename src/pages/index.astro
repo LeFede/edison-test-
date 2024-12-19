@@ -3,7 +3,7 @@ export const prerender = false
 import Layout from '../layouts/Layout.astro';
 import axios, { type AxiosResponse } from "axios";
 import { aResult, type Result } from "@volpe/utils";
-import {type Course, type IAcademy} from "../env.d"
+import {type Category, type Course, type IAcademy} from "../env.d"
 import Card from "../components/Card/Card.tsx";
 import Market from "../components/Market/Market.astro"
 
@@ -29,9 +29,18 @@ if (academyError) throw academyError
 if (!axiosResponseAcademy) throw axiosResponseAcademy
 
 
+
 const {data: courses} = axiosResponse
 const {data: academy} = axiosResponseAcademy
 
+const [categoriesError, axiosResponseCategories] = await api_qa.get[aResult](`/categories`) as Result<AxiosResponse<Category[]>>;
+
+if (categoriesError) throw categoriesError
+if (!axiosResponseCategories) throw axiosResponseCategories
+
+const {data: allCategories} = axiosResponseCategories
+
+let categories = allCategories?.filter((e: any) => e.academyId === academy?.id)
 ---
 
 <Layout academy={academy}>

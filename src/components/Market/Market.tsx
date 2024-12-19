@@ -70,7 +70,8 @@ const Market: React.FC<Props> = ({ courses }) => {
           style={{ backgroundColor: "var(--main-color)" }}
           onClick={() => setShowAllCourses(true)}
         >
-          Todos los cursos<Arrow />
+          Todos los cursos
+          <Arrow />
         </button>
       )}
     </section>

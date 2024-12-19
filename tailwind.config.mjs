@@ -10,6 +10,11 @@ export default {
         gray_300: "#D0D5DD",
         gray_100: "#F2F4F7",
         gray_25: "#FCFCFD",
+        anuncios_500: "#1240B7",
+        naranja_500: "#FF5500",
+        error_600: "#D92D20",
+
+        cardHover: "#66708555",
       },
       fontFamily: {
         inter: "Inter Variable",
