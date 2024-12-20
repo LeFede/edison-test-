@@ -3,6 +3,9 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
+      screens: {
+        xs: "375px",
+      },
       maxWidth: {
         container: "1100px",
       },
@@ -11,6 +14,7 @@ export default {
       },
       colors: {
         gray_300: "#D0D5DD",
+        gray_400: "#A8AFB8",
         gray_100: "#F2F4F7",
         gray_25: "#FCFCFD",
         gray_500: "#667085",

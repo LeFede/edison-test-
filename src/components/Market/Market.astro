@@ -1,9 +1,7 @@
 ---
 import { type Category, type Course } from '../../env.d';
-import Card from '../Card/Card.tsx';
-import ClientMarket from "./Market.tsx"
-import Arrow from "./Arrow.svg"
 import timeLeft from '../../utils/timeLeft';
+import ClientMarket from './Market.tsx';
 
 const FIRST_SHOWED = 9
 
@@ -31,95 +29,24 @@ filteredCourses = filteredCourses.filter((course) => {
   return timeLeft(time, "hours") > -24 
 });
 
-const splitCourses = [...filteredCourses].splice(0,FIRST_SHOWED)
-
 ---
 
 <section id="marketSkeleton" class="
   px-4 m-auto absolute left-1/2 -translate-x-1/2 w-full
+  grid grid-cols-1
   md:max-w-container 
   lg:px-0 lg:grid lg:grid-cols-[150px_auto] lg:gap-x-14
-
   ">
-  <aside class="col-span-1 col-start-1 row-span-5">
-    <p class="font-medium mb-4">Todos los cursos</p>
-    <ul class="flex flex-col gap-2 mb-4">
-      <li class="font-medium text-gray_500 border-gray_500 border-b border-opacity-35 hover:text-gray_900 hover:cursor-pointer hover:border-opacity-100">
-        Categorías
-      </li>
-      {categories.map((category) => {
-        return (
-          <li
-            class="text-wrap line-clamp-1 text-sm"
-            title={category.value}
-          >
-            {category.value}
-          </li>
-        );
-      })}
-    </ul>
-
-    <ul class="flex flex-col gap-2 mb-4">
-      <li class="font-medium text-gray_500 border-gray_500 border-b border-opacity-35 hover:text-gray_900 hover:cursor-pointer hover:border-opacity-100">
-        Duración
-      </li>
-      {categories.map((category) => {
-        return (
-          <li
-            class="text-wrap line-clamp-1 text-sm"
-            title={category.value}
-          >
-            {category.value}
-          </li>
-        );
-      })}
-    </ul>
-
-    <ul class="flex flex-col gap-2 mb-4">
-      <li class="font-medium text-gray_500 border-gray_500 border-b border-opacity-35 hover:text-gray_900 hover:cursor-pointer hover:border-opacity-100">
-        Modalidad
-      </li>
-      {categories.map((category) => {
-        return (
-          <li
-            class="text-wrap line-clamp-1 text-sm"
-            title={category.value}
-          >
-            {category.value}
-          </li>
-        );
-      })}
-    </ul>
-  </aside>
-  
-  <div class="col-start-2">
-    <p class="text-4xl font-semibold mb-2 hidden lg:block">Todos los cursos</p>
-    <p class="text-xl mb-4 hidden lg:block">
-      Explora todos nuestros cursos, liderados por los principales expertos de cada industria.
-    </p>
-    <input type="text" disabled="true" aria-label="buscador de cursos"
-      placeholder="Busca tu curso..."
-      class="
-        mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:mb-10
-        "
-    />
-    <hr class="h-0.5 bg-gray_300 my-6 lg:hidden" />
-  </div>
-  
-  <div class="grid gap-4 grid-cols-market col-start-2">
-    {splitCourses.map((course) => (
-      <Card course={course} />
-    ))}
-  </div>
-
-  {courses.length > FIRST_SHOWED && (
-    <button
-      class="w-full text-gray_25 font-medium text-lg flex justify-center py-1.5 gap-x-2 rounded-lg mt-6 mb-12 col-start-2"
-      style={{ backgroundColor: "var(--main-color)" }}
-    >
-      Todos los cursos <Arrow />
-    </button>
-  )}
+  <ClientMarket courses={filteredCourses} firstShowed={FIRST_SHOWED} categories={categories}/>
 </section>
 
-<ClientMarket courses={filteredCourses} client:visible firstShowed={FIRST_SHOWED} categories={categories}/>
+
+<section
+  class="px-4 m-auto 
+  grid grid-cols-1
+  md:max-w-container
+  lg:px-0 lg:grid lg:grid-cols-[150px_auto] lg:gap-x-14
+"
+>
+  <ClientMarket courses={filteredCourses} client:visible firstShowed={FIRST_SHOWED} categories={categories}/>
+</section>

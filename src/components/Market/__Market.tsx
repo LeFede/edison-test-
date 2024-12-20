@@ -11,12 +11,8 @@ interface Props {
   categories: Category[];
 }
 
-const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
+const Market: React.FC<Props> = ({ courses, firstShowed = 10, categories }) => {
   const [showAllCourses, setShowAllCourses] = useState(false);
-  const [showCategories, setShowCategories] = useState(true);
-  const [showDuration, setShowDuration] = useState(false);
-  const [showPrice, setShowPrice] = useState(false);
-  const [showModality, setShowModality] = useState(false);
 
   const splitCourses = [...courses].splice(
     0,
@@ -27,30 +23,31 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
     const element = document.getElementById("marketSkeleton");
     if (element) {
       // Establecer las propiedades de estilo
-      element.style.visibility = "hidden";
-      // element.style.opacity = "0.1";
+      // element.style.visibility = "hidden";
+      element.style.opacity = "0.5";
       element.style.zIndex = "-99";
     }
   }, []); // El efecto se ejecuta una vez cuando el componente se monta
 
   return (
-    <>
+    <section
+      className="px-4 m-auto
+      md:max-w-container
+      lg:px-0 lg:grid lg:grid-cols-[150px_auto] lg:gap-x-14
+    "
+    >
       <Filters>
         <p className="font-medium mb-4 cursor-pointer hidden lg:block">
           Todos los cursos
         </p>
 
-        <Filters.Title toggle={setShowCategories}>
-          Categoría<span className="hidden lg:inline">s</span>
-        </Filters.Title>
-        <Filters.Group show={showCategories}>
-          {categories.map((category) => (
-            <Filters.Category key={category.id} value={category.value} />
-          ))}
-        </Filters.Group>
-
-        <Filters.Title toggle={setShowDuration}>Duración</Filters.Title>
-        <Filters.Group show={showDuration}>
+        <Filters.Title>Categorías</Filters.Title>
+        <ul
+          className="flex gap-2 mb-4
+          flex-row
+          lg:flex-col 
+          "
+        >
           {categories.map((category) => {
             return (
               <li
@@ -62,10 +59,15 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
               </li>
             );
           })}
-        </Filters.Group>
+        </ul>
 
-        <Filters.Title toggle={setShowPrice}>Precio</Filters.Title>
-        <Filters.Group show={showPrice}>
+        <Filters.Title>Duración</Filters.Title>
+        <ul
+          className="flex gap-2 mb-4
+          flex-row
+          lg:flex-col 
+          "
+        >
           {categories.map((category) => {
             return (
               <li
@@ -77,10 +79,15 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
               </li>
             );
           })}
-        </Filters.Group>
+        </ul>
 
-        <Filters.Title toggle={setShowModality}>Modalidad</Filters.Title>
-        <Filters.Group show={showModality}>
+        <Filters.Title>Modalidad</Filters.Title>
+        <ul
+          className="flex gap-2 mb-4
+          flex-row
+          lg:flex-col 
+          "
+        >
           {categories.map((category) => {
             return (
               <li
@@ -92,10 +99,9 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
               </li>
             );
           })}
-        </Filters.Group>
+        </ul>
       </Filters>
-      <hr className="h-0.5 bg-gray_300 my-6 lg:hidden" />
-      <div className="lg:col-start-2 row-start-1 lg:row-start-auto mb-4 lg:mb-0">
+      <div className="col-start-2">
         <label
           htmlFor="market-input"
           className="text-4xl font-semibold mb-2 hidden lg:block"
@@ -112,11 +118,12 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
           type="text"
           placeholder="Busca tu curso..."
           className={`
-            text-sm mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:mb-10 lg:text-base
+            mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:mb-10
           ${s.input}`}
         />
+        <hr className="h-0.5 bg-gray_300 my-6 lg:hidden" />
       </div>
-      <div className="grid gap-4 grid-cols-market lg:col-start-2">
+      <div className="grid gap-4 grid-cols-market col-start-2">
         {splitCourses.map((course) => (
           <Card key={course.id} course={course} />
         ))}
@@ -124,7 +131,7 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
 
       {!showAllCourses && courses.length > firstShowed && (
         <button
-          className="w-full text-gray_25 font-medium text-lg flex justify-center py-1.5 gap-x-2 rounded-lg mt-6 mb-12 lg:col-start-2"
+          className="w-full text-gray_25 font-medium text-lg flex justify-center py-1.5 gap-x-2 rounded-lg mt-6 mb-12 col-start-2"
           style={{ backgroundColor: "var(--main-color)" }}
           onClick={() => setShowAllCourses(true)}
         >
@@ -132,8 +139,8 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
           <Arrow />
         </button>
       )}
-    </>
+    </section>
   );
 };
 
-export default Test;
+export default Market;

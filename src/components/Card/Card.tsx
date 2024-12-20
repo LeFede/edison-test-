@@ -164,7 +164,7 @@ grid grid-cols-4 rounded-lg p-4 grid-rows-[30px_min-content_min-content_auto] mi
     >
       <div
         className="bg-gray_25 absolute top-0 left-0 w-full h-full -z-10 rounded-lg"
-        style={{ backgroundColor: mixWithWhite(categoryColor, 0.96) }}
+        style={{ backgroundColor: mixWithWhite(categoryColor, 0.9) }}
       ></div>
       <span
         className="col-span-2 line-clamp-1 text-xs w-fit h-fit text-white px-2 py-0.5 rounded-xl"
