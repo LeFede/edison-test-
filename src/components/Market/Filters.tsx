@@ -12,10 +12,15 @@ interface GroupProps extends AnyChildren {
   show: boolean;
 }
 
+interface CategoryProps {
+  value: string;
+  amount: number;
+}
+
 interface FiltersComponent extends React.FC<AnyChildren> {
   Title: React.FC<TitleProps>;
   Group: React.FC<GroupProps>;
-  Category: React.FC<any>;
+  Category: React.FC<CategoryProps>;
 }
 
 const Filters: FiltersComponent = ({ children }) => {
@@ -37,8 +42,8 @@ const Title: React.FC<TitleProps> = ({ children, toggle }) => {
       onClick={() => toggle((prev) => !prev)}
       className="bg-gray_25
       text-xs sm:text-sm lg:text-base border border-gray_400 inline-block text-center  py-2 rounded-lg
-      lg:border-l-transparent lg:border-r-transparent lg:border-t-transparent lg:block lg:p-0 lg:rounded-none lg:mr-0
-      lg:font-medium lg:text-gray_500 lg:border-gray_500 lg:border-b lg:border-opacity-35 lg:hover:text-gray_900 hover:cursor-pointer lg:hover:border-opacity-100 lg:text-left lg:mb-2 overflow-hidden lg:bg-transparent"
+      lg:border-l-transparent lg:border-r-transparent lg:border-t-transparent lg:block lg:p-0 lg:rounded-none 
+      lg:font-medium lg:text-gray_500 lg:border-gray_500 lg:border-b lg:border-opacity-35 lg:hover:text-gray_900 hover:cursor-pointer lg:hover:border-opacity-100 lg:text-left lg:mb-2 overflow-hidden lg:bg-transparent lg:mx-4"
     >
       {children}
     </p>
@@ -51,7 +56,7 @@ const Group: React.FC<GroupProps> = ({ children, show }) => {
     <ul
       className="flex gap-3 border border-gray_900 bg-gray_100 rounded-lg p-4 col-span-4
           flex-row flex-wrap
-          lg:flex-col lg:relative lg:border-none lg:rounded-none lg:p-0 lg:gap-4 lg:flex-nowrap lg:bg-transparent lg:mb-6
+          lg:flex-col lg:relative lg:border-none lg:rounded-none lg:p-0 lg:gap-2 lg:flex-nowrap lg:bg-transparent lg:mb-6
           "
     >
       {children}
@@ -59,16 +64,27 @@ const Group: React.FC<GroupProps> = ({ children, show }) => {
   );
 };
 
-const Category: React.FC<any> = ({ value }) => {
+const Category: React.FC<CategoryProps> = ({ value, amount }) => {
+  const selectedStyles = { background: "var(--main-color)" };
+  const isSelected = true;
   return (
     <li
-      className="text-wrap line-clamp-1 text-sm cursor-pointer bg-gray_25
+      className={`text-wrap line-clamp-1 text-sm cursor-pointer bg-gray_25
         px-2.5 py-1 border rounded-lg border-gray_900
-        lg:p-0 lg:border-none lg:rounded-none lg:bg-transparent
-      "
+        lg:px-4 lg:py-1 lg:border-none lg:bg-transparent lg:font-medium ${isSelected && "text-gray_25 flex"}
+      `}
+      style={isSelected ? selectedStyles : {}}
       title={value}
     >
-      {value}
+      <span className="lg:line-clamp-1 lg:w-min">{value}</span>
+      <span
+        className={`hidden lg:inline ml-1 ${!isSelected && "text-gray_500"}`}
+      >
+        ({amount})
+      </span>
+      {isSelected && (
+        <span className="hidden lg:inline ml-auto font-normal">x</span>
+      )}
     </li>
   );
 };

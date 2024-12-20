@@ -145,7 +145,7 @@ const Card: React.FC<Props> = ({ course }) => {
       href={href}
       target="_blank"
       rel="noreferrer noopener nofollow"
-      title={`${timeLeft(startTime, "hours") < 0 ? "¡Todavía estás a tiempo!" : ""}`}
+      title={`${timeLeft(startTime, "hours") < 0 ? "¡Todavía estás a tiempo!" : courseName}`}
       style={
         {
           // backgroundColor: `${mixWithWhite(categoryColor, 0.9)}`,

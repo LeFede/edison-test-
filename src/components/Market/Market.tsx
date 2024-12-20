@@ -11,7 +11,19 @@ interface Props {
   categories: Category[];
 }
 
+function countCoursesByCategory(courses: Course[]): Record<string, number> {
+  return courses.reduce(
+    (acc, course) => {
+      const category = course.category.value;
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
+}
+
 const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
+  const countedCategories = countCoursesByCategory(courses);
   const [showAllCourses, setShowAllCourses] = useState(false);
   const [showCategories, setShowCategories] = useState(true);
   const [showDuration, setShowDuration] = useState(false);
@@ -26,17 +38,16 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
   useEffect(() => {
     const element = document.getElementById("marketSkeleton");
     if (element) {
-      // Establecer las propiedades de estilo
       element.style.visibility = "hidden";
       // element.style.opacity = "0.1";
       element.style.zIndex = "-99";
     }
-  }, []); // El efecto se ejecuta una vez cuando el componente se monta
+  }, []);
 
   return (
     <>
       <Filters>
-        <p className="font-medium mb-4 cursor-pointer hidden lg:block">
+        <p className="font-medium mb-4 cursor-pointer hidden lg:block lg:px-4 text-nowrap">
           Todos los cursos
         </p>
 
@@ -44,9 +55,19 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
           Categoría<span className="hidden lg:inline">s</span>
         </Filters.Title>
         <Filters.Group show={showCategories}>
-          {categories.map((category) => (
-            <Filters.Category key={category.id} value={category.value} />
-          ))}
+          {categories
+            .sort(
+              (a, b) =>
+                (countedCategories[b.value] || 0) -
+                (countedCategories[a.value] || 0),
+            )
+            .map((category) => (
+              <Filters.Category
+                key={category.id}
+                value={category.value}
+                amount={countedCategories[category.value]}
+              />
+            ))}
         </Filters.Group>
 
         <Filters.Title toggle={setShowDuration}>Duración</Filters.Title>
