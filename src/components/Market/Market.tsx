@@ -34,15 +34,16 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
     0,
     showAllCourses ? courses.length : firstShowed,
   );
+  console.log("a");
 
-  // useEffect(() => {
-  //   const element = document.getElementById("marketSkeleton");
-  //   if (element) {
-  //     // element.style.visibility = "hidden";
-  //     element.style.opacity = "0.5";
-  //     element.style.zIndex = "-999";
-  //   }
-  // }, []);
+  useEffect(() => {
+    const element = document.getElementById("marketSkeleton");
+    if (element) {
+      element.style.visibility = "hidden";
+      // element.style.opacity = "0.5";
+      element.style.zIndex = "-999";
+    }
+  }, []);
 
   return (
     <>

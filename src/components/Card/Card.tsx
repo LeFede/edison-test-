@@ -156,6 +156,9 @@ const Card: React.FC<Props> = ({ course }) => {
         {
           // backgroundColor: `${mixWithWhite(categoryColor, 0.9)}`,
           // backgroundColor: `${categoryColor}${cardBackgroundAlpha}`,
+          // boxShadow: !import.meta.env.SSR
+          //   ? "0px 4px 5px 0px rgba(0, 0, 0, 0.1)"
+          //   : "",
           backgroundColor: "white",
           "--category-color": categoryColor,
         } as React.CSSProperties
