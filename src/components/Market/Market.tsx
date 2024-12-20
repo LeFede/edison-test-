@@ -34,7 +34,6 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
     0,
     showAllCourses ? courses.length : firstShowed,
   );
-  console.log("a");
 
   useEffect(() => {
     const element = document.getElementById("marketSkeleton");
