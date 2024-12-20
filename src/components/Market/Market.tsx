@@ -35,14 +35,14 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
     showAllCourses ? courses.length : firstShowed,
   );
 
-  useEffect(() => {
-    const element = document.getElementById("marketSkeleton");
-    if (element) {
-      // element.style.visibility = "hidden";
-      element.style.opacity = "0.5";
-      element.style.zIndex = "-999";
-    }
-  }, []);
+  // useEffect(() => {
+  //   const element = document.getElementById("marketSkeleton");
+  //   if (element) {
+  //     // element.style.visibility = "hidden";
+  //     element.style.opacity = "0.5";
+  //     element.style.zIndex = "-999";
+  //   }
+  // }, []);
 
   return (
     <>
@@ -129,7 +129,7 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
         </label>
 
         <input
-          id="market-input"
+          id={import.meta.env.SSR ? "" : "market-input"}
           type="text"
           placeholder="Busca tu curso..."
           className={`
