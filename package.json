@@ -16,6 +16,7 @@
     "@fontsource-variable/manrope": "^5.1.0",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
+    "@volpe/react-utils": "^0.0.20",
     "@volpe/utils": "^0.0.45",
     "astro": "^5.0.9",
     "astro-aws-amplify": "^0.1.0",

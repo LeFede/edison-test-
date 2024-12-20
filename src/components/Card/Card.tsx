@@ -57,6 +57,8 @@ const Card: React.FC<Props> = ({ course }) => {
   const isAsyncText = isAsync ? "Curso grabado" : "Curso en vivo";
   if (categoryColor == "#039855") categoryColor = "#037C46";
 
+  const finalUsers = users.filter((user) => user.user.name != "Ánkyra");
+
   const estados = {
     PROXIMAMENTE: (
       <p className="col-span-4 self-end text-sm flex gap-1 items-center justify-center text-anuncios_500">
@@ -124,7 +126,9 @@ const Card: React.FC<Props> = ({ course }) => {
     ),
   } as const;
 
-  let estado = isAsync
+  type EstadoKeys = keyof typeof estados;
+
+  let estado: EstadoKeys | "" = isAsync
     ? type === "WORKSHOP"
       ? "QUICK_LEARN"
       : ""
@@ -183,8 +187,8 @@ grid grid-cols-4 rounded-lg p-4 grid-rows-[30px_min-content_min-content_auto] mi
       </p>
 
       <div className="col-span-4 gap-4 flex flex-col mb-6">
-        {users.map((user, index) => (
-          <User key={index} user={user} solo={users.length == 1} />
+        {finalUsers.map((user, index) => (
+          <User key={index} user={user} solo={finalUsers.length == 1} />
         ))}
       </div>
 

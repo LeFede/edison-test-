@@ -76,7 +76,7 @@ const Category: React.FC<CategoryProps> = ({ value, amount }) => {
       style={isSelected ? selectedStyles : {}}
       title={value}
     >
-      <span className="lg:line-clamp-1 lg:w-min">{value}</span>
+      <span className="lg:line-clamp-1 lg:max-w-32">{value}</span>
       <span
         className={`hidden lg:inline ml-1 ${!isSelected && "text-gray_500"}`}
       >

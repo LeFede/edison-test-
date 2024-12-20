@@ -40,7 +40,7 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
     if (element) {
       element.style.visibility = "hidden";
       // element.style.opacity = "0.1";
-      element.style.zIndex = "-99";
+      element.style.zIndex = "-999";
     }
   }, []);
 
