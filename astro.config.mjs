@@ -8,6 +8,7 @@ export default defineConfig({
   integrations: [react(), tailwind()],
   adapter: awsAmplify(),
   output: "static", // Asegúrate de que la salida esté en la carpeta estática
+  compressHTML: true,
   env: {
     schema: {
       ACADEMY_ID: envField.string({
