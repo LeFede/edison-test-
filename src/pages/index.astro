@@ -1,10 +1,10 @@
 ---
+export const prerender = false
 import Layout from '../layouts/Layout.astro';
 import { type AxiosResponse } from "axios";
 import { aResult, type Result } from "@volpe/utils";
 import {type Category, type Course, type IAcademy} from "../env.d"
 import Market from "../components/Market/Market.astro"
-import Test from '../components/Test.astro';
 import api from '../../axios';
 import { ACADEMY_ID } from 'astro:env/server';
 
@@ -42,7 +42,6 @@ let categories = allCategories?.filter((e: any) => e.academyId === academy?.id)
   <br/>
   
   <h1 class="h-[2000px]">Imágenes Optimizadas</h1>
-  <Test server:defer/>
   <!-- <Market courses={courses} categories={categories}/> -->
   <Market courses={courses} categories={categories}/>
 </Layout>

@@ -7,8 +7,7 @@ import compressor from "astro-compressor";
 export default defineConfig({
   integrations: [react(), tailwind(), compressor()],
   adapter: awsAmplify(),
-  output: "server", // Asegúrate de que la salida esté en la carpeta estática
-
+  output: "static", // Asegúrate de que la salida esté en la carpeta estática
   env: {
     schema: {
       ACADEMY_ID: envField.string({
