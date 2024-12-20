@@ -5,7 +5,6 @@ const ClockSvg = ({ className }: { className: string }) => {
       width="17"
       height="17"
       viewBox="0 0 17 17"
-      fill="none"
       className={className}
     >
       <path

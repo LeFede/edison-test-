@@ -59,6 +59,8 @@ const Card: React.FC<Props> = ({ course }) => {
 
   const finalUsers = users.filter((user) => user.user.name != "Ánkyra");
 
+  const fecha = formatearFecha(startTime);
+
   const estados = {
     PROXIMAMENTE: (
       <p className="col-span-4 self-end text-sm flex gap-1 items-center justify-center text-anuncios_500">
@@ -70,7 +72,7 @@ const Card: React.FC<Props> = ({ course }) => {
       <div className="col-span-4 self-end text-sm flex gap-x-6 gap-y-2 items-center justify-between text-nowrap flex-wrap">
         <div className="flex gap-1 items-center">
           <CalendarSvg />
-          <p>{formatearFecha(startTime)}</p>
+          <p>{fecha}</p>
         </div>
         <div className="flex gap-1 text-naranja_500 font-semibold items-center">
           <QuickLearnSvg />
@@ -82,7 +84,7 @@ const Card: React.FC<Props> = ({ course }) => {
       <p className="col-span-4 self-end text-sm flex gap-1 items-center justify-center text-error_600">
         <div className="flex gap-1 items-center">
           <CalendarSvg />
-          <p>{formatearFecha(startTime)}</p>
+          <p>{fecha}</p>
         </div>
         <div className="flex gap-1 ">
           <UltimosCuposSvg />
@@ -94,7 +96,7 @@ const Card: React.FC<Props> = ({ course }) => {
       <div className="col-span-4 self-end text-sm flex gap-x-6 gap-y-2 items-center justify-between text-nowrap flex-wrap">
         <div className="flex gap-1 items-center">
           <CalendarSvg />
-          <p>{formatearFecha(startTime)}</p>
+          <p>{fecha}</p>
         </div>
 
         <div className="flex gap-1 ">
@@ -107,7 +109,7 @@ const Card: React.FC<Props> = ({ course }) => {
       <div className="col-span-4 self-end text-sm flex gap-x-6 gap-y-2 items-center justify-between text-nowrap flex-wrap">
         <div className="flex gap-1">
           <CalendarSvg />
-          <p>{formatearFecha(startTime)}</p>
+          <p>{fecha}</p>
         </div>
 
         <div className={`flex gap-1  ${s.ultimoLlamado} will-change-transform`}>
@@ -120,7 +122,7 @@ const Card: React.FC<Props> = ({ course }) => {
       <div className="col-span-4 self-end text-sm flex gap-x-6 gap-y-2 items-center justify-between text-nowrap flex-wrap">
         <div className="flex gap-1">
           <CalendarSvg />
-          <p>{formatearFecha(startTime)}</p>
+          <p>{fecha}</p>
         </div>
       </div>
     ),
