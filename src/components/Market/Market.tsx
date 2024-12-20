@@ -38,8 +38,8 @@ const Test: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
   useEffect(() => {
     const element = document.getElementById("marketSkeleton");
     if (element) {
-      element.style.visibility = "hidden";
-      // element.style.opacity = "0.1";
+      // element.style.visibility = "hidden";
+      element.style.opacity = "0.5";
       element.style.zIndex = "-999";
     }
   }, []);
