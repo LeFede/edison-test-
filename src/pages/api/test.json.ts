@@ -1,7 +1,7 @@
-import type { APIContext } from "astro";
+import type { APIContext, APIRoute } from "astro";
 export const prerender = false;
 
-export async function GET({ params }: APIContext) {
+export const GET: APIRoute = ({ params }: APIContext) => {
   console.log(params);
 
   const currentTime = new Date().toLocaleTimeString();
@@ -14,4 +14,4 @@ export async function GET({ params }: APIContext) {
         "public, max-age=10, s-maxage=20, stale-while-revalidate=5",
     },
   });
-}
+};

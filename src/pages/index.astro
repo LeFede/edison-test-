@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 import Layout from '../layouts/Layout.astro';
-import { type AxiosResponse } from "axios";
+import axios, { type AxiosResponse } from "axios";
 import { aResult, type Result } from "@volpe/utils";
 import { type Category, type Course, type IAcademy } from "../env.d";
 import Market from "../components/Market/Market.astro";
@@ -31,9 +31,14 @@ const { data: academy } = axiosResponseAcademy;
 const { data: allCategories } = axiosResponseCategories;
 
 let categories = allCategories?.filter((e: any) => e.academyId === academy?.id);
+
+const url = `${Astro.url.origin}/api/test.json`
+const [err, response] = await axios.get[aResult](url)
+const {data: data} = response
 ---
 
 <Layout academy={academy}>
+  <p>Hora de la api: {data.message}</p>
   hola<br/>
   {currentTime}
   <br/>
