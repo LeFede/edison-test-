@@ -11,7 +11,7 @@ export const GET: APIRoute = ({ params }: APIContext) => {
     headers: {
       "Content-Type": "application/json",
       "Cache-Control":
-        "public, max-age=10, s-maxage=20, stale-while-revalidate=5",
+        "public, max-age=30, s-maxage=35, stale-while-revalidate=10",
     },
   });
 };
