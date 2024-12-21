@@ -1,4 +1,5 @@
 ---
+Astro.response.headers.set('Cache-Control', 'public, maxage=20, s-maxage=25, stale-while-revalidate=10');
 export const prerender = false;
 import Layout from '../layouts/Layout.astro';
 import axios, { type AxiosResponse } from "axios";
@@ -35,7 +36,6 @@ const url = `${Astro.url.origin}/api/test.json`
 const [err, response] = await axios.get[aResult](url)
 const {data: data} = response
 
-Astro.response.headers.set('Cache-Control', 'public, maxage=20, s-maxage=25, stale-while-revalidate=10');
 ---
 
 <Layout academy={academy}>
