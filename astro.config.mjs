@@ -18,4 +18,9 @@ export default defineConfig({
       }),
     },
   },
+  vite: {
+    define: {
+      "process.env.NODE_ENV": JSON.stringify("development"), // Fuerza modo desarrollo en producción
+    },
+  },
 });
