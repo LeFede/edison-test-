@@ -56,9 +56,9 @@ const Title: React.FC<TitleProps> = ({
     <p
       onClick={() => toggle(!state)}
       className={`
-      text-xs sm:text-sm lg:text-base border border-gray_400 flex justify-center text-center  py-2 rounded-lg
+text-xs sm:text-sm lg:text-base border border-gray_400 flex justify-center text-center  py-2 rounded-lg
       lg:border-l-transparent lg:border-r-transparent lg:border-t-transparent lg:flex lg:p-0 lg:rounded-none 
-      lg:font-medium lg:text-gray_500 lg:border-gray_500 lg:border-b lg:border-opacity-35 lg:hover:text-gray_900 hover:cursor-pointer lg:hover:border-opacity-100 lg:text-left lg:mb-2 overflow-hidden lg:bg-transparent lg:mx-4  ${state ? "bg-[var(--main-color)] text-gray_25" : storeLength > 0 ? "bg-[var(--main-transparent)]" : ""}`}
+      lg:font-medium lg:text-gray_500 lg:border-gray_500 lg:border-b lg:border-opacity-35 lg:hover:text-gray_900 hover:cursor-pointer lg:hover:border-opacity-100 lg:text-left lg:mb-2 overflow-hidden lg:bg-transparent lg:mx-4  ${state ? "bg-[var(--main-color)] text-gray_25" : storeLength > 0 ? "bg-[var(--main-transparent)]" : "bg-gray_25"}`}
     >
       {children}{" "}
       {storeLength > 0 && (

@@ -14,7 +14,6 @@ import {
   selectedPrice,
   showAllCourses,
 } from "../../store";
-import formatearFecha from "../Card/formatearFecha";
 
 interface Props {
   courses: Course[];
@@ -31,9 +30,9 @@ const Market: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
     if (selectedPrice.get().length) showAllCourses.set(true);
     if (selectedModality.get().length) showAllCourses.set(true);
     if (element) {
-      element.style.visibility = "hidden";
+      // element.style.visibility = "hidden";
       // element.style.opacity = "0.5";
-      element.style.zIndex = "-999";
+      // element.style.zIndex = "-999";
     }
   }, []);
 

@@ -39,7 +39,7 @@ const PriceCriteria: React.FC<Props> = () => {
         Precio
       </Filters.Title>
       <Filters.Group show={$showPrice}>
-        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
+        <label className="px-4 lg:hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1 flex items-center">
           <input
             type="checkbox"
             className="mr-2"
@@ -53,7 +53,7 @@ const PriceCriteria: React.FC<Props> = () => {
           0 a 75 USD
         </label>
 
-        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
+        <label className="px-4 lg:hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1 flex items-center">
           <input
             type="checkbox"
             className="mr-2"
@@ -67,7 +67,7 @@ const PriceCriteria: React.FC<Props> = () => {
           75 a 120 USD
         </label>
 
-        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
+        <label className="px-4 lg:hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1 flex items-center">
           <input
             type="checkbox"
             className="mr-2"
@@ -81,7 +81,7 @@ const PriceCriteria: React.FC<Props> = () => {
           120 a 175 USD
         </label>
 
-        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
+        <label className="px-4 lg:hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1 flex items-center">
           <input
             type="checkbox"
             className="mr-2 cursor-pointer"

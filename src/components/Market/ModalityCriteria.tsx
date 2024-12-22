@@ -37,7 +37,7 @@ const ModalityCriteria: React.FC<Props> = () => {
         Modalidad
       </Filters.Title>
       <Filters.Group show={$showModality}>
-        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
+        <label className="px-4 lg:hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1 flex items-center">
           <input
             type="checkbox"
             className="mr-2"
@@ -51,7 +51,7 @@ const ModalityCriteria: React.FC<Props> = () => {
           En vivo
         </label>
 
-        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
+        <label className="px-4 lg:hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1 flex items-center">
           <input
             type="checkbox"
             className="mr-2"

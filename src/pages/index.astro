@@ -1,35 +1,122 @@
 ---
-Astro.response.headers.set('Cache-Control', 'public, maxage=10, s-maxage=10, stale-while-revalidate=5');
-export const prerender = false;
 import Layout from '../layouts/Layout.astro';
 import Market from "../components/Market/Market.astro";
 import localApiPath from "../utils/localApiPath"
-import {localApi} from "../../axios"
+import { localApi } from "../../axios"
 
-const currentTime = new Date().toLocaleTimeString();
-
-const [coursesResult, academyResult, categoriesResult] = await Promise.all([
-  localApi.get(localApiPath(Astro, "courses")) ,
+const [academyResult] = await Promise.all([
   localApi.get(localApiPath(Astro, "academy")),
-  localApi.get(localApiPath(Astro, "categories")),
 ]);
 
 let errors = {academy: null, courses: null, categories: null};
 
-const [coursesError, courses] = coursesResult.data
 const [academyError, academy] = academyResult.data;
-const [categoriesError, allCategories] = categoriesResult.data;
 
-if (coursesError || !courses) errors.courses = coursesError
 if (academyError || !academy) errors.academy = academyError
-if (categoriesError || !allCategories) errors.categories = categoriesError
 
-let categories = allCategories?.filter((e: any) => e.academyId === academy?.id);
 ---
 <Layout academy={academy}>
-  {currentTime}
+  <p class="h-[200px]">hola todobien</p>
+
+  {!errors.courses ? <Market server:defer> 
+    <section
+      id="marketSkeleton"
+      slot="fallback"
+      class="px-4 m-auto 
+      grid grid-cols-1
+      md:max-w-container
+      lg:px-0 lg:grid lg:grid-cols-[200px_auto] lg:gap-x-14 lg:min-h-[800px] cursor-wait
+    "
+    >
+      <div class="flex flex-col gap-1 cont">
+        <div class="bg-gray_300 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-1/2 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-3/4 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-1/2 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-3/4 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-full h-4 rounded-lg"></div>
+
+        <div class="bg-gray_300 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-3/6 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-1/4 h-4 rounded-lg"></div>
+
+        <div class="bg-gray_300 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-4/5 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-1/2 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-3/6 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-1/4 h-4 rounded-lg"></div>
+
+        <div class="bg-gray_300 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-full h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-3/6 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-3/4 h-4 rounded-lg"></div>
+        <div class="bg-gray_100 w-full h-4 rounded-lg"></div>
+      </div>
+
+      <div class="lg:col-start-2 row-start-1 lg:row-start-auto mb-4 lg:mb-0 z-20 sticky top-2 lg:-top-20">
+        <label
+          for="market-input"
+          class="text-4xl font-semibold mb-2 hidden lg:block cursor-wait"
+        >
+          Todos los cursos
+        </label>
+        <label for="market-input" class="text-xl mb-4 hidden lg:block cursor-wait">
+          Explora todos nuestros cursos, liderados por los principales expertos
+          de cada industria.
+        </label>
+        <input
+          name="test1"
+          id={"market-input"}
+          type="text"
+          placeholder="Buscando cursos..."
+          disabled
+          class={`
+            text-sm mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:text-base cursor-wait
+          `}
+        />
+
+        <div
+          class="grid gap-4 grid-cols-market lg:col-start-2 mt-10 cont
+          "
+        >
+          <div class="bg-gray_300 w-full h-64 rounded-lg"></div>
+          <div class="bg-gray_300 w-full h-64 rounded-lg"></div>
+          <div class="bg-gray_300 w-full h-64 rounded-lg"></div>
+          <div class="bg-gray_300 w-full h-64 rounded-lg"></div>
+          <div class="bg-gray_300 w-full h-64 rounded-lg"></div>
+          <div class="bg-gray_300 w-full h-64 rounded-lg"></div>
+        </div>
+      </div>
+    </section>
+  </Market> : "Error con los cursos"}
+  <p class="h-[1000px]">a</p>
+
   <p>{errors.academy ? "Error con la academia" : "academia bien jej"}</p>
   <p>{errors.categories ? "Error con las categorias" : "cat bien jej"}</p>
-  <p class="h-[1500px]">a</p>
-  <p>{!errors.courses ? <Market courses={courses} categories={categories} /> : "Error con los cursos"}</p>
 </Layout>
+
+<style>
+@keyframes wave-color {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Para aplicar la animación */
+.cont > div{
+  background: linear-gradient(-45deg, #d7d7d7, #eeeeee, #cccccc, #d7d7d7);
+  background-size: 400% 400%;
+  animation: wave-color 3s ease infinite;
+}
+</style>

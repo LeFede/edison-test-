@@ -1,12 +1,13 @@
 import Arrow from "./Arrow.svg";
 import s from "./Market.module.css";
 import { useEffect } from "react";
-import { animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll, Events, scrollSpy } from "react-scroll";
 import Card from "../Card/Card";
 import type { Course } from "../../env.d";
 import { Filter, updateQuery } from "@volpe/utils";
 import { useStore } from "@nanostores/react";
 import {
+  isScrolling,
   searchBar,
   selectedCategories,
   selectedDuration,
@@ -14,7 +15,7 @@ import {
   selectedPrice,
   showAllCourses,
 } from "../../store";
-import { useUrlInputAtom } from "@volpe/react-utils";
+import { useUrlInputAtom, useUrlInputAtomDebounce } from "@volpe/react-utils";
 
 interface Props {
   courses: Course[];
@@ -81,6 +82,21 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
 
   useEffect(() => {
     if ($searchBar.length > 0) showAllCourses.set(true);
+
+    Events.scrollEvent.register("begin", () => {
+      isScrolling.set(true);
+    });
+
+    Events.scrollEvent.register("end", () => {
+      isScrolling.set(false);
+    });
+
+    scrollSpy.update();
+
+    return () => {
+      Events.scrollEvent.remove("begin");
+      Events.scrollEvent.remove("end");
+    };
   }, [$searchBar]);
 
   return (
@@ -104,7 +120,9 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
             showAllCourses.set(true);
 
             const isMobile = window.innerWidth < 1024;
-            scroll.scrollTo(isMobile ? 80 : 160, {
+
+            if (isScrolling.get()) return;
+            scroll.scrollTo(isMobile ? 200 : 280, {
               duration: 200,
               smooth: false, // Scroll suave
               // offset: -50 // Opcional, si necesitas ajustar el scroll para elementos fijos
@@ -112,6 +130,7 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
           }}
           value={$searchBar}
           type="text"
+          autoComplete="off"
           placeholder="Busca tu curso..."
           className={`
             text-sm mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:text-base 
@@ -129,20 +148,28 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
           </span>
         )}
       </div>
-      <div className="grid gap-4 grid-cols-market lg:col-start-2 lg:mt-10">
+      <div
+        className="grid gap-4 grid-cols-market lg:col-start-2 lg:mt-10 lg:min-h-[800px] auto-rows-min relative
+        "
+      >
         {courses.length == 0 ? (
-          <div className="col-span-3 place-items-center">
-            <img src={"/astronaut/luna.webp"} className="min-h-20" />
-            <p className="mt-10">
-              Aún estamos esperando al resto de la tripulación 🚀🌙
-            </p>
-          </div>
+          <>
+            <div className="col-span-3 place-items-center  w-full">
+              <img src={"/astronaut/luna.webp"} className="min-h-10" />
+
+              <p className="mt-10">
+                Aún estamos esperando al resto de la tripulación 🚀🌙
+              </p>
+            </div>
+          </>
         ) : (
           filteredCourses.length == 0 && (
-            <div className="col-span-3 place-items-center">
-              <img src={"/astronaut/astronaut.webp"} className="min-h-20" />
-              <p className="mt-10">No encontramos ese planeta 😢🪐🚀</p>
-            </div>
+            <>
+              <div className="col-span-3 place-items-center  w-full">
+                <img src={"/astronaut/astronaut.webp"} className="min-h-10" />
+                <p className="mt-10">No encontramos ese planeta 😢🪐🚀</p>
+              </div>
+            </>
           )
         )}
         {filteredCourses.map((course) => (

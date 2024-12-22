@@ -1,20 +1,42 @@
 ---
-export const prerender = false
+Astro.response.headers.set('Cache-Control', 'public, maxage=10, s-maxage=10, stale-while-revalidate=5');
+export const prerender = false;
 import { type Category, type Course } from '../../env.d';
 import timeLeft from '../../utils/timeLeft';
 import ClientMarket from './Market.tsx';
 
+import localApiPath from "../../utils/localApiPath"
+import {localApi} from "../../../axios"
+import { wait } from '@volpe/utils';
+
 const FIRST_SHOWED = 6
 
 interface Props {
-  courses: Course[];
-  categories: Category[]
+  // courses: Course[];
+  // categories: Category[]
 }
 
-const { courses, categories } = Astro.props;
+const [coursesResult, academyResult, categoriesResult] = await Promise.all([
+  localApi.get(localApiPath(Astro, "courses")) ,
+  localApi.get(localApiPath(Astro, "academy")),
+  localApi.get(localApiPath(Astro, "categories")),
+]);
+
+let errors = {academy: null, courses: null, categories: null};
+
+const [coursesError, courses] = coursesResult.data
+const [academyError, academy] = academyResult.data;
+const [categoriesError, allCategories] = categoriesResult.data;
+
+if (coursesError || !courses) errors.courses = coursesError
+if (academyError || !academy) errors.academy = academyError
+if (categoriesError || !allCategories) errors.categories = categoriesError
+
+let categories = allCategories?.filter((e: any) => e.academyId === academy?.id);
 
 let filteredCourses = courses
-filteredCourses = courses.sort((a, b) => {
+
+filteredCourses = courses.sort((a: Course, b: Course) => {
   const getPriority = (course: any) => {
     if (!course.config.isAsync && !course.comingSoon) return 0; // Primero
     if (course.config.isAsync && !course.comingSoon) return 1; // Segundo
@@ -24,29 +46,33 @@ filteredCourses = courses.sort((a, b) => {
   // @ts-ignore
   return getPriority(a) - getPriority(b);
 });
-filteredCourses = filteredCourses.filter((course) => {
+
+filteredCourses = filteredCourses.filter((course: Course) => {
   if (course.comingSoon) return true
   const time = course.events[0].startTime;
   return timeLeft(time, "hours") > -24 
 });
 
+// await wait(100)
+
 ---
 
-<section id="marketSkeleton" class="
-  px-4 m-auto absolute left-1/2 -translate-x-1/2 w-full
-  grid grid-cols-1
-  md:max-w-container 
-  lg:px-0 lg:grid lg:grid-cols-[200px_auto] lg:gap-x-14
-  ">
-  <ClientMarket courses={filteredCourses} firstShowed={FIRST_SHOWED} categories={categories}/>
-</section>
+<!-- <section id="marketSkeleton" class=" -->
+<!--   px-4 m-auto absolute left-1/2 -translate-x-1/2 w-full -->
+<!--   grid grid-cols-1 -->
+<!--   md:max-w-container  -->
+<!--   lg:px-0 lg:grid lg:grid-cols-[200px_auto] lg:gap-x-14 -->
+<!--   "> -->
+<!--   <ClientMarket courses={filteredCourses} firstShowed={FIRST_SHOWED} categories={categories}/> -->
+<!-- </section> -->
 
 
 <section
+  id="market-section"
   class="px-4 m-auto 
   grid grid-cols-1
   md:max-w-container
-  lg:px-0 lg:grid lg:grid-cols-[200px_auto] lg:gap-x-14
+  lg:px-0 lg:grid lg:grid-cols-[200px_auto] lg:gap-x-14 lg:min-h-[800px]
 "
 >
   <ClientMarket courses={filteredCourses} client:visible firstShowed={FIRST_SHOWED} categories={categories}/>
