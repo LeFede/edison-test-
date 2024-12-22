@@ -2,6 +2,7 @@
 import Meta from "../components/Meta.astro"
 import "@fontsource-variable/inter"
 import type { IAcademy } from "../env"
+import { mixWithWhite } from "../utils/mixWithWhite";
 
 interface Props {
   academy: IAcademy;
@@ -25,7 +26,7 @@ const {mainColor, secondaryColor} = academy?.style ?? {mainColor: "red", seconda
 	</head>
   <body 
     class="bg-gray_25" 
-    style={`--main-color: ${mainColor}; --secondary-color: ${secondaryColor};`}
+    style={`--main-color: ${mainColor}; --secondary-color: ${secondaryColor}; --main-transparent: ${mixWithWhite(mainColor, 0.85)}`}
   >
 		<slot />
 	</body>

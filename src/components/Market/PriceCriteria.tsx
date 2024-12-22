@@ -1,8 +1,16 @@
 import { useState } from "react";
 import Filters from "./Filters";
 
-import { selectedPrice, showAllCourses } from "../../store";
+import {
+  selectedPrice,
+  showAllCourses,
+  showCategories,
+  showDuration,
+  showModality,
+  showPrice,
+} from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
+import { useStore } from "@nanostores/react";
 
 interface Props {}
 
@@ -11,18 +19,27 @@ const PriceCriteria: React.FC<Props> = () => {
     selectedPrice,
     "precio",
   );
-  const [show, setShow] = useState(false);
+  const $showPrice = useStore(showPrice);
   const sel1 = $selectedPrice.includes("0-75");
   const sel2 = $selectedPrice.includes("75-120");
   const sel3 = $selectedPrice.includes("120-175");
   const sel4 = $selectedPrice.includes("mas-de-175");
   return (
     <>
-      <Filters.Title toggle={setShow} storeLength={$selectedPrice.length}>
+      <Filters.Title
+        toggle={(e) => {
+          showPrice.set(e);
+          showModality.set(false);
+          showDuration.set(false);
+          showCategories.set(false);
+        }}
+        state={$showPrice}
+        storeLength={$selectedPrice.length}
+      >
         Precio
       </Filters.Title>
-      <Filters.Group show={show}>
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+      <Filters.Group show={$showPrice}>
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2"
@@ -36,7 +53,7 @@ const PriceCriteria: React.FC<Props> = () => {
           0 a 75 USD
         </label>
 
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2"
@@ -50,7 +67,7 @@ const PriceCriteria: React.FC<Props> = () => {
           75 a 120 USD
         </label>
 
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2"
@@ -64,7 +81,7 @@ const PriceCriteria: React.FC<Props> = () => {
           120 a 175 USD
         </label>
 
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2 cursor-pointer"

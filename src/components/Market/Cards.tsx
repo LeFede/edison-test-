@@ -1,9 +1,10 @@
 import Arrow from "./Arrow.svg";
 import s from "./Market.module.css";
-import { useState } from "react";
+import { useEffect } from "react";
+import { animateScroll as scroll } from "react-scroll";
 import Card from "../Card/Card";
 import type { Course } from "../../env.d";
-import { Filter } from "@volpe/utils";
+import { Filter, updateQuery } from "@volpe/utils";
 import { useStore } from "@nanostores/react";
 import {
   searchBar,
@@ -78,9 +79,13 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
     );
   });
 
+  useEffect(() => {
+    if ($searchBar.length > 0) showAllCourses.set(true);
+  }, [$searchBar]);
+
   return (
     <>
-      <div className="lg:col-start-2 row-start-1 lg:row-start-auto mb-4 lg:mb-0">
+      <div className="lg:col-start-2 row-start-1 lg:row-start-auto mb-4 lg:mb-0 z-20 sticky top-2 lg:-top-20">
         <label
           htmlFor="market-input"
           className="text-4xl font-semibold mb-2 hidden lg:block"
@@ -92,18 +97,54 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
           de cada industria.
         </label>
         <input
+          name="test1"
           id={"market-input"}
-          onChange={onChange}
+          onChange={(e) => {
+            onChange(e);
+            showAllCourses.set(true);
+
+            const isMobile = window.innerWidth < 1024;
+            scroll.scrollTo(isMobile ? 80 : 160, {
+              duration: 200,
+              smooth: false, // Scroll suave
+              // offset: -50 // Opcional, si necesitas ajustar el scroll para elementos fijos
+            });
+          }}
           value={$searchBar}
           type="text"
           placeholder="Busca tu curso..."
           className={`
-            text-sm mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:mb-10 lg:text-base
+            text-sm mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:text-base 
           ${s.input}`}
         />
+        {$searchBar.length > 0 && (
+          <span
+            className="absolute right-0 cursor-pointer px-4 py-2.5 text-gray_500 hover:text-gray_900"
+            onClick={() => {
+              searchBar.set("");
+              updateQuery("search", "");
+            }}
+          >
+            x
+          </span>
+        )}
       </div>
-      <div className="grid gap-4 grid-cols-market lg:col-start-2">
-        {filteredCourses.length == 0 && "No hay cursos con esos filtros 😥"}
+      <div className="grid gap-4 grid-cols-market lg:col-start-2 lg:mt-10">
+        {courses.length == 0 ? (
+          <div className="col-span-3 place-items-center">
+            <img src={"/astronaut/luna.webp"} className="min-h-20" />
+            <p className="mt-10">
+              Aún estamos esperando al resto de la tripulación 🚀🌙
+            </p>
+          </div>
+        ) : (
+          filteredCourses.length == 0 && (
+            <div className="col-span-3 place-items-center">
+              <img src={"/astronaut/astronaut.webp"} className="min-h-20" />
+              <p className="mt-10">No encontramos ese planeta 😢🪐🚀</p>
+            </div>
+          )
+        )}
         {filteredCourses.map((course) => (
           <Card key={course.id} course={course} />
         ))}
@@ -111,6 +152,7 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
 
       {!$showAllCourses && courses.length > firstShowed && (
         <button
+          name="test2"
           className="w-full text-gray_25 font-medium text-lg flex justify-center py-1.5 gap-x-2 rounded-lg mt-6 mb-12 lg:col-start-2"
           style={{ backgroundColor: "var(--main-color)" }}
           onClick={() => showAllCourses.set(true)}

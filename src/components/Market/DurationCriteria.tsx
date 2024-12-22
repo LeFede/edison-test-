@@ -6,8 +6,13 @@ import {
   selectedDuration,
   selectedModality,
   showAllCourses,
+  showCategories,
+  showDuration,
+  showModality,
+  showPrice,
 } from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
+import { useStore } from "@nanostores/react";
 
 interface Props {}
 
@@ -19,14 +24,23 @@ const DurationCriteria: React.FC<Props> = () => {
   const sel1 = $selectedDuration.includes("1-clase");
   const sel2 = $selectedDuration.includes("2-a-4-clases");
   const sel3 = $selectedDuration.includes("mas-de-4-clases");
-  const [show, setShow] = useState(false);
+  const $showDuration = useStore(showDuration);
   return (
     <>
-      <Filters.Title toggle={setShow} storeLength={$selectedDuration.length}>
+      <Filters.Title
+        toggle={(e) => {
+          showDuration.set(e);
+          showModality.set(false);
+          showPrice.set(false);
+          showCategories.set(false);
+        }}
+        state={$showDuration}
+        storeLength={$selectedDuration.length}
+      >
         Duración
       </Filters.Title>
-      <Filters.Group show={show}>
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+      <Filters.Group show={$showDuration}>
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2 pointer-events-none"
@@ -40,7 +54,7 @@ const DurationCriteria: React.FC<Props> = () => {
           1 clase
         </label>
 
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2"
@@ -54,7 +68,7 @@ const DurationCriteria: React.FC<Props> = () => {
           2 a 4 clases
         </label>
 
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2"

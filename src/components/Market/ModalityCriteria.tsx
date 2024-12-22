@@ -1,8 +1,16 @@
 import { useState } from "react";
 import Filters from "./Filters";
 
-import { selectedModality, showAllCourses } from "../../store";
+import {
+  selectedModality,
+  showAllCourses,
+  showCategories,
+  showDuration,
+  showModality,
+  showPrice,
+} from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
+import { useStore } from "@nanostores/react";
 
 interface Props {}
 
@@ -11,16 +19,25 @@ const ModalityCriteria: React.FC<Props> = () => {
     selectedModality,
     "modalidad",
   );
-  const [show, setShow] = useState(false);
+  const $showModality = useStore(showModality);
   const sel1 = $selectedModality.includes("en-vivo");
   const sel2 = $selectedModality.includes("grabados");
   return (
     <>
-      <Filters.Title toggle={setShow} storeLength={$selectedModality.length}>
+      <Filters.Title
+        toggle={(e) => {
+          showModality.set(e);
+          showPrice.set(false);
+          showDuration.set(false);
+          showCategories.set(false);
+        }}
+        state={$showModality}
+        storeLength={$selectedModality.length}
+      >
         Modalidad
       </Filters.Title>
-      <Filters.Group show={show}>
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+      <Filters.Group show={$showModality}>
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2"
@@ -34,7 +51,7 @@ const ModalityCriteria: React.FC<Props> = () => {
           En vivo
         </label>
 
-        <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
+        <label className="px-4 hover:bg-[var(--main-transparent)] cursor-pointer rounded-lg lg:py-1">
           <input
             type="checkbox"
             className="mr-2"
