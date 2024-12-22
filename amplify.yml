@@ -3,7 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install # Instala todas las dependencias
+        - npm install --legacy-peer-deps # Instala todas las dependencias
     build:
       commands:
         - env > .env # Crea el archivo .env
