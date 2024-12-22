@@ -3,14 +3,14 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install --legacy-peer-deps # Instala todas las dependencias
+        - npm install # Instala todas las dependencias
     build:
       commands:
         - env > .env # Crea el archivo .env
         - npm run optimize-images
         - npm run build # Ejecuta el script de construcción
         - rm -rf node_modules # Elimina node_modules
-        - npm install --omit=dev # Instala solo las dependencias de producción
+        - npm install --omit=dev --legacy-peer-deps # Instala solo las dependencias de producción
         - mv node_modules .amplify-hosting/compute/default/ # Mueve node_modules
         - mv .env .amplify-hosting/compute/default/.env # Mueve .env
   artifacts:
