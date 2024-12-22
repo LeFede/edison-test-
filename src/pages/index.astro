@@ -30,5 +30,6 @@ let categories = allCategories?.filter((e: any) => e.academyId === academy?.id);
   {currentTime}
   <p>{errors.academy ? "Error con la academia" : "academia bien jej"}</p>
   <p>{errors.categories ? "Error con las categorias" : "cat bien jej"}</p>
+  <p class="h-[1500px]">a</p>
   <p>{!errors.courses ? <Market courses={courses} categories={categories} /> : "Error con los cursos"}</p>
 </Layout>
