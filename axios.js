@@ -26,4 +26,17 @@ const _api_local = axios.create({
   },
 });
 
-export default api_qa;
+const localApi = axios.create({});
+localApi.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    return Promise.resolve(error.response);
+  },
+);
+
+const api = api_qa;
+
+export { localApi };
+export default api;

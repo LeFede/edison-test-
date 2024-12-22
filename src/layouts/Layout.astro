@@ -7,8 +7,8 @@ interface Props {
   academy: IAcademy;
 }
 
-const {academy} = Astro.props
-const {mainColor, secondaryColor} = academy.style
+const {academy} = Astro.props ?? {}
+const {mainColor, secondaryColor} = academy?.style ?? {mainColor: "red", secondaryColor: "blue"}
 
 ---
 
