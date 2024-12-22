@@ -14,6 +14,7 @@ import {
   selectedPrice,
   showAllCourses,
 } from "../../store";
+import formatearFecha from "../Card/formatearFecha";
 
 interface Props {
   courses: Course[];

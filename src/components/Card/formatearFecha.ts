@@ -1,5 +1,5 @@
 function formatearFecha(fechaISO: string): string {
-  // Parsear la fecha ISO a un objeto Date
+  // Parsear la fecha ISO a un objeto Date en UTC
   const fecha = new Date(fechaISO);
 
   // Verificar si la fecha es válida
@@ -8,28 +8,26 @@ function formatearFecha(fechaISO: string): string {
   }
 
   // Objeto con las abreviaciones de los meses
-  const monthAbbreviations = {
-    0: "enero",
-    1: "febrero",
-    2: "marzo",
-    3: "abril",
-    4: "mayo",
-    5: "junio",
-    6: "julio",
-    7: "agosto",
-    8: "septiembre",
-    9: "octubre",
-    10: "noviembre",
-    11: "diciembre",
-  };
+  const monthAbbreviations = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
 
-  // Obtener el día y el mes de la fecha
-  const dia = fecha.getDate();
+  // Obtener el día y el mes en UTC
+  const dia = fecha.getUTCDate();
+  const mes = monthAbbreviations[fecha.getUTCMonth()];
 
-  // @ts-ignore
-  const mes = monthAbbreviations[fecha.getMonth()]; // Obtener la abreviatura del mes
-
-  // Devolver la fecha formateada como "día mes."
+  // Devolver la fecha formateada como "día de mes"
   return `${dia} de ${mes}`;
 }
 
