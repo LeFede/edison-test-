@@ -32,5 +32,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.2"
+  },
+  "overrides": {
+    "react-scroll": {
+      "react": "^19.0.0"
+    }
   }
 }
