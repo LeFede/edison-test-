@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Filters from "./Filters";
 
-import { selectedPrice } from "../../store";
+import { selectedPrice, showAllCourses } from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
 
-interface Props { }
+interface Props {}
 
 const PriceCriteria: React.FC<Props> = () => {
   const [$selectedPrice, handleCheckboxChange] = useUrlCheckboxAtom(
@@ -18,14 +18,19 @@ const PriceCriteria: React.FC<Props> = () => {
   const sel4 = $selectedPrice.includes("mas-de-175");
   return (
     <>
-      <Filters.Title toggle={setShow}>Precio</Filters.Title>
+      <Filters.Title toggle={setShow} storeLength={$selectedPrice.length}>
+        Precio
+      </Filters.Title>
       <Filters.Group show={show}>
         <label className="px-4 hover:bg-gray_100 cursor-pointer rounded-lg">
           <input
             type="checkbox"
             className="mr-2"
             checked={sel1}
-            onChange={handleCheckboxChange}
+            onChange={(e) => {
+              handleCheckboxChange(e);
+              showAllCourses.set(true);
+            }}
             name="0-75"
           />
           0 a 75 USD
@@ -36,7 +41,10 @@ const PriceCriteria: React.FC<Props> = () => {
             type="checkbox"
             className="mr-2"
             checked={sel2}
-            onChange={handleCheckboxChange}
+            onChange={(e) => {
+              handleCheckboxChange(e);
+              showAllCourses.set(true);
+            }}
             name="75-120"
           />
           75 a 120 USD
@@ -47,7 +55,10 @@ const PriceCriteria: React.FC<Props> = () => {
             type="checkbox"
             className="mr-2"
             checked={sel3}
-            onChange={handleCheckboxChange}
+            onChange={(e) => {
+              handleCheckboxChange(e);
+              showAllCourses.set(true);
+            }}
             name="120-175"
           />
           120 a 175 USD
@@ -58,7 +69,10 @@ const PriceCriteria: React.FC<Props> = () => {
             type="checkbox"
             className="mr-2 cursor-pointer"
             checked={sel4}
-            onChange={handleCheckboxChange}
+            onChange={(e) => {
+              handleCheckboxChange(e);
+              showAllCourses.set(true);
+            }}
             name="mas-de-175"
           />
           +175 USD

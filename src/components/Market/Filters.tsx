@@ -4,6 +4,7 @@ import {
   selectedCategories,
   selectedDuration,
   selectedModality,
+  showAllCourses,
 } from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
 
@@ -13,6 +14,7 @@ interface AnyChildren {
 
 interface TitleProps extends AnyChildren {
   toggle: React.Dispatch<React.SetStateAction<boolean>>;
+  storeLength: number;
 }
 
 interface GroupProps extends AnyChildren {
@@ -43,7 +45,7 @@ const Filters: FiltersComponent = ({ children }) => {
   );
 };
 
-const Title: React.FC<TitleProps> = ({ children, toggle }) => {
+const Title: React.FC<TitleProps> = ({ children, toggle, storeLength }) => {
   return (
     <p
       onClick={() => toggle((prev) => !prev)}
@@ -52,7 +54,10 @@ const Title: React.FC<TitleProps> = ({ children, toggle }) => {
       lg:border-l-transparent lg:border-r-transparent lg:border-t-transparent lg:block lg:p-0 lg:rounded-none 
       lg:font-medium lg:text-gray_500 lg:border-gray_500 lg:border-b lg:border-opacity-35 lg:hover:text-gray_900 hover:cursor-pointer lg:hover:border-opacity-100 lg:text-left lg:mb-2 overflow-hidden lg:bg-transparent lg:mx-4"
     >
-      {children}
+      {children}{" "}
+      {storeLength > 0 && (
+        <span className="hidden lg:inline">({storeLength})</span>
+      )}
     </p>
   );
 };
@@ -106,7 +111,10 @@ const Category: React.FC<CategoryProps> = ({ value, amount }) => {
           type="checkbox"
           name={value}
           checked={$selectedCategories.includes(value)}
-          onChange={handleCheckboxChange}
+          onChange={(e) => {
+            handleCheckboxChange(e);
+            showAllCourses.set(true);
+          }}
           hidden
         />
       </label>

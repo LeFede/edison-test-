@@ -12,6 +12,7 @@ import {
   selectedDuration,
   selectedModality,
   selectedPrice,
+  showAllCourses,
 } from "../../store";
 
 interface Props {
@@ -23,6 +24,11 @@ interface Props {
 const Market: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
   useEffect(() => {
     const element = document.getElementById("marketSkeleton");
+    if (selectedPrice.get().length) showAllCourses.set(true);
+    if (selectedCategories.get().length) showAllCourses.set(true);
+    if (selectedDuration.get().length) showAllCourses.set(true);
+    if (selectedPrice.get().length) showAllCourses.set(true);
+    if (selectedModality.get().length) showAllCourses.set(true);
     if (element) {
       element.style.visibility = "hidden";
       // element.style.opacity = "0.5";
@@ -45,7 +51,8 @@ const Market: React.FC<Props> = ({ courses, firstShowed = 9, categories }) => {
     <>
       <Filters>
         <p
-          className="font-medium mb-4 cursor-pointer hidden lg:block lg:px-4 text-nowrap"
+          className="font-medium mb-4 cursor-pointer hidden lg:block lg:px-4 text-nowrap
+          hover:bg-gray_100 rounded-lg py-0.5"
           onClick={resetCategories}
         >
           Todos los cursos

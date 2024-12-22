@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Filters from "./Filters";
 import type { Category, Course } from "../../env.d";
+import { selectedCategories } from "../../store";
+import { useStore } from "@nanostores/react";
 
 interface Props {
   categories: Category[];
@@ -21,10 +23,14 @@ function countCoursesByCategory(courses: Course[]): Record<string, number> {
 const CategoryCriteria: React.FC<Props> = ({ categories, courses }) => {
   const countedCategories = countCoursesByCategory(courses);
   const [showCategories, setShowCategories] = useState(true);
+  const $selectedCategories = useStore(selectedCategories);
 
   return (
     <>
-      <Filters.Title toggle={setShowCategories}>
+      <Filters.Title
+        toggle={setShowCategories}
+        storeLength={$selectedCategories.length}
+      >
         Categoría<span className="hidden lg:inline">s</span>
       </Filters.Title>
       <Filters.Group show={showCategories}>
