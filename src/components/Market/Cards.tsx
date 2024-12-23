@@ -149,7 +149,7 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
         )}
       </div>
       <div
-        className="grid gap-4 grid-cols-market lg:col-start-2 lg:mt-10 lg:min-h-[800px] auto-rows-min relative
+        className="grid gap-4 grid-cols-market lg:col-start-2 lg:mt-10 lg:min-h-[500px] auto-rows-min relative
         "
       >
         {courses.length == 0 ? (
