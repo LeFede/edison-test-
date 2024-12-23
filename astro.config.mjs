@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [react(), tailwind()],
   adapter: awsAmplify(),
   output: "static", // Asegúrate de que la salida esté en la carpeta estática
-  compressHTML: true,
+  // compressHTML: true,
   env: {
     schema: {
       ACADEMY_ID: envField.string({
@@ -18,9 +18,9 @@ export default defineConfig({
       }),
     },
   },
-  vite: {
-    define: {
-      "process.env.NODE_ENV": JSON.stringify("development"), // Fuerza modo desarrollo en producción
-    },
-  },
+  // vite: {
+  //   define: {
+  //     "process.env.NODE_ENV": JSON.stringify("development"), // Fuerza modo desarrollo en producción
+  //   },
+  // },
 });

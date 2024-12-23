@@ -1,12 +1,25 @@
-import type { APIContext, APIRoute } from "astro";
-export const prerender = false;
+import type { APIRoute } from "astro";
+import api from "../../../axios";
+import { aResult, type Result } from "@volpe/utils";
+import { HttpStatusCode, type AxiosResponse } from "axios";
+import { ACADEMY_ID } from "astro:env/server";
+import { type Course } from "../../env.d";
 
-export const GET: APIRoute = ({ params }: APIContext) => {
-  console.log(params);
+export const GET: APIRoute = async (_ctx) => {
+  const [err, res] = (await api.get[aResult](
+    `/academies/${ACADEMY_ID}`,
+  )) as unknown as Result<AxiosResponse<Course[]>>;
 
-  const currentTime = new Date().toLocaleTimeString();
-  return new Response(JSON.stringify({ message: currentTime }), {
-    status: 200,
+  if (err || !res)
+    return new Response(JSON.stringify([err, null]), {
+      status: HttpStatusCode.NotFound,
+      statusText: "There was an error fetching academy",
+    });
+
+  const { data: academy } = res;
+
+  return new Response(JSON.stringify([null, academy]), {
+    status: HttpStatusCode.Ok,
     statusText: "Ok!",
     headers: {
       "Content-Type": "application/json",
