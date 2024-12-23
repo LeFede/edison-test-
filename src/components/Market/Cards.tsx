@@ -57,6 +57,10 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
   const en_vivo = $selectedModality.includes("en-vivo");
   // @ts-ignore
   const grabados = $selectedModality.includes("grabados");
+  const _0a75 = $selectedPrice.includes("0-75");
+  const _75a120 = $selectedPrice.includes("75-120");
+  const _120a175 = $selectedPrice.includes("120-175");
+  const _mas175 = $selectedPrice.includes("mas-de-175");
 
   filteredCourses = filteredCourses.filter((course) => {
     if (!_1clase && !_2_4clase && !_4clase) return true;
@@ -77,6 +81,18 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
       (en_vivo && e.config.isAsync == false) ||
       // @ts-ignore
       (grabados && e.config.isAsync == true)
+    );
+  });
+
+  filteredCourses = filteredCourses.filter((e) => {
+    if (!_0a75 && !_75a120 && !_120a175 && !_mas175) return true;
+    const usd = e.prices.find((e) => e.currency == "USD")?.value;
+    if (!usd) return true;
+    return (
+      (_0a75 && usd <= 75) ||
+      (_75a120 && usd > 75 && usd <= 120) ||
+      (_120a175 && usd > 120 && usd <= 175) ||
+      (_mas175 && usd > 175)
     );
   });
 
@@ -122,10 +138,9 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
             const isMobile = window.innerWidth < 1024;
 
             if (isScrolling.get()) return;
-            scroll.scrollTo(isMobile ? 200 : 280, {
+            scroll.scrollTo(isMobile ? 300 : 380, {
               duration: 200,
-              smooth: false, // Scroll suave
-              // offset: -50 // Opcional, si necesitas ajustar el scroll para elementos fijos
+              smooth: false,
             });
           }}
           value={$searchBar}
@@ -149,7 +164,7 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
         )}
       </div>
       <div
-        className="grid gap-4 grid-cols-market lg:col-start-2 lg:mt-10 lg:min-h-[500px] auto-rows-min relative
+        className="grid gap-4 grid-cols-market lg:col-start-2 lg:mt-10 lg:min-h-[620px] auto-rows-min relative
         "
       >
         {courses.length == 0 ? (

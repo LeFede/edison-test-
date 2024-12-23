@@ -2,6 +2,7 @@ import { useState } from "react";
 import Filters from "./Filters";
 
 import {
+  isScrolling,
   selectedCategories,
   selectedDuration,
   selectedModality,
@@ -13,6 +14,7 @@ import {
 } from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
 import { useStore } from "@nanostores/react";
+import { animateScroll } from "react-scroll";
 
 interface Props {}
 
@@ -48,6 +50,13 @@ const DurationCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
+              const isMobile = window.innerWidth < 1024;
+
+              if (isScrolling.get()) return;
+              animateScroll.scrollTo(isMobile ? 300 : 380, {
+                duration: 200,
+                smooth: false,
+              });
             }}
             name="1-clase"
           />
@@ -62,6 +71,14 @@ const DurationCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
+
+              const isMobile = window.innerWidth < 1024;
+
+              if (isScrolling.get()) return;
+              animateScroll.scrollTo(isMobile ? 300 : 380, {
+                duration: 200,
+                smooth: false,
+              });
             }}
             name="2-a-4-clases"
           />
@@ -76,6 +93,14 @@ const DurationCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
+
+              const isMobile = window.innerWidth < 1024;
+
+              if (isScrolling.get()) return;
+              animateScroll.scrollTo(isMobile ? 300 : 380, {
+                duration: 200,
+                smooth: false,
+              });
             }}
             name="mas-de-4-clases"
           />

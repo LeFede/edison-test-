@@ -2,6 +2,7 @@ import { useState } from "react";
 import Filters from "./Filters";
 
 import {
+  isScrolling,
   selectedModality,
   showAllCourses,
   showCategories,
@@ -11,6 +12,7 @@ import {
 } from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
 import { useStore } from "@nanostores/react";
+import { animateScroll } from "react-scroll";
 
 interface Props {}
 
@@ -45,6 +47,14 @@ const ModalityCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
+
+              const isMobile = window.innerWidth < 1024;
+
+              if (isScrolling.get()) return;
+              animateScroll.scrollTo(isMobile ? 300 : 380, {
+                duration: 200,
+                smooth: false,
+              });
             }}
             name="en-vivo"
           />
@@ -59,6 +69,14 @@ const ModalityCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
+
+              const isMobile = window.innerWidth < 1024;
+
+              if (isScrolling.get()) return;
+              animateScroll.scrollTo(isMobile ? 300 : 380, {
+                duration: 200,
+                smooth: false,
+              });
             }}
             name="grabados"
           />

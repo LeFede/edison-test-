@@ -15,10 +15,12 @@ const [academyError, academy] = academyResult.data
 
 if (academyError || !academy) errors.academy = academyError
 
+console.log(academyError)
+console.log(academy.style)
 
 ---
 <Layout academy={academy}>
-  <p class="h-[1400px]">hola todobien</p>
+  <p class="h-[300px]">hola todobien</p>
 
   {!errors.courses ? <Market server:defer> 
     <section

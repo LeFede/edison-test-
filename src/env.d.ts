@@ -42,6 +42,14 @@ export interface Course {
   users: User[];
   events: Event[];
   config: Config;
+  prices: Prices[];
+}
+
+export interface Prices {
+  id: number;
+  value: number;
+  currency: "EUR" | "ARS" | "USD";
+  courseId: number;
 }
 
 export interface Category {
