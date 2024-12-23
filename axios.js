@@ -36,7 +36,7 @@ localApi.interceptors.response.use(
   },
 );
 
-const api = _api_local;
+const api = api_qa;
 
 export { localApi };
 export default api;
