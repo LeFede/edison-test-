@@ -8,13 +8,25 @@ interface Props {
 }
 
 const {academy} = Astro.props
-const {logo} = academy.style
+// const {logo} = academy.style
+
+const srcset = [
+  `/__optimized-images/logo_2x.webp 1x`,
+  `/__optimized-images/logo_2x.webp 2x`,
+  `/__optimized-images/logo_3x.webp 3x`,
+].join(", ");
 ---
 
 <nav class=" max-w-container m-auto relative px-4 text-gray_25 z-50 flex justify-center gap-4 min-h-16 lg:min-h-12 py-4">
   <div class="absolute inset-0 bg-[var(--secondary-color)] w-[4000px] -translate-x-1/2 -z-10"></div>
   <a href="/" aria-label="link to main" class="flex items-center absolute left-4 top-1/2 -translate-y-1/2">
-    <img alt={`${academy.name} logo`} src={"/__optimized-images/logo_1x.webp"} width="100" height="27"/>
+    <img 
+      alt={`${academy.name} logo`} 
+      src={"/__optimized-images/logo_2x.webp"} 
+      width="100" height="27"
+      srcset={srcset}
+      loading="lazy"
+    />
   </a>
   <label for="check" class="lg:hidden cursor-pointer">
     <Burger/>
