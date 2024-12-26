@@ -53,7 +53,6 @@ filteredCourses = filteredCourses.filter((course: Course) => {
   return timeLeft(time, "hours") > -24 
 });
 
-console.log(courses[0])
 
 // await wait(100)
 
@@ -75,6 +74,7 @@ console.log(courses[0])
   grid grid-cols-1
   md:max-w-container
   lg:px-0 lg:grid lg:grid-cols-[200px_auto] lg:gap-x-14 lg:min-h-[800px]
+  my-10
 "
 >
   <ClientMarket courses={filteredCourses} client:visible firstShowed={FIRST_SHOWED} categories={categories}/>

@@ -9,6 +9,7 @@ import {
 } from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
 import { animateScroll } from "react-scroll";
+import Arrow from "../Svgs/Arrow.tsx";
 
 interface AnyChildren {
   children: React.ReactNode;
@@ -68,14 +69,13 @@ text-xs sm:text-sm lg:text-base border border-gray_400 flex justify-center text-
           <span className="hidden lg:inline ml-1">({storeLength})</span>
         </>
       )}
-      <span
-        className="transition-transform ml-auto hidden lg:inline-block"
+      <Arrow
+        className="transition-transform ml-auto hidden lg:inline-block w-3.5"
         style={{
           transform: state ? "rotate(270deg)" : "rotate(90deg)",
         }}
-      >
-        &gt;
-      </span>
+        fill={"#6b7280"}
+      ></Arrow>
     </p>
   );
 };

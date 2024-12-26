@@ -10,6 +10,7 @@ interface Props {
 
 const {academy} = Astro.props ?? {}
 const {mainColor, secondaryColor} = academy?.style ?? {mainColor: "red", secondaryColor: "blue"}
+console.log(secondaryColor)
 
 ---
 

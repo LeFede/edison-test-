@@ -26,7 +26,7 @@ relative after:content-[''] after:absolute after:top-0 after:left-0 after:border
       >
         <img
           src={`/__optimized-images/${userId}_1x.webp`}
-          alt="Imagen optimizada"
+          alt="profile"
           width={36}
           height={36}
           srcSet={srcset}

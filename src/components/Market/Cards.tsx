@@ -16,6 +16,7 @@ import {
   showAllCourses,
 } from "../../store";
 import { useUrlInputAtom, useUrlInputAtomDebounce } from "@volpe/react-utils";
+import X from "../Svgs/X";
 
 interface Props {
   courses: Course[];
@@ -128,40 +129,41 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
           Explora todos nuestros cursos, liderados por los principales expertos
           de cada industria.
         </label>
-        <input
-          name="test1"
-          id={"market-input"}
-          onChange={(e) => {
-            onChange(e);
-            showAllCourses.set(true);
+        <div className="relative">
+          <input
+            name="test1"
+            id={"market-input"}
+            onChange={(e) => {
+              onChange(e);
+              showAllCourses.set(true);
 
-            const isMobile = window.innerWidth < 1024;
+              const isMobile = window.innerWidth < 1024;
 
-            if (isScrolling.get()) return;
-            scroll.scrollTo(isMobile ? 300 : 380, {
-              duration: 200,
-              smooth: false,
-            });
-          }}
-          value={$searchBar}
-          type="text"
-          autoComplete="off"
-          placeholder="Busca tu curso..."
-          className={`
+              if (isScrolling.get()) return;
+              scroll.scrollTo(isMobile ? 300 : 380, {
+                duration: 200,
+                smooth: false,
+              });
+            }}
+            value={$searchBar}
+            type="text"
+            autoComplete="off"
+            placeholder="Busca tu curso..."
+            className={`
             text-sm mx-0 p-2.5 w-full z-10 rounded-lg bg-white border-dark border-2 border-opacity-35 text-dark focus:outline-none lg:text-base 
           ${s.input}`}
-        />
-        {$searchBar.length > 0 && (
-          <span
-            className="absolute right-0 cursor-pointer px-4 py-2.5 text-gray_500 hover:text-gray_900"
-            onClick={() => {
-              searchBar.set("");
-              updateQuery("search", "");
-            }}
-          >
-            x
-          </span>
-        )}
+          />
+          {$searchBar.length > 0 && (
+            <X
+              // className="absolute right-0 cursor-pointer px-4 py-2.5 text-gray_500 hover:text-gray_900"
+              className="absolute right-4 top-2 w-4"
+              onClick={() => {
+                searchBar.set("");
+                updateQuery("search", "");
+              }}
+            ></X>
+          )}
+        </div>
       </div>
       <div
         className="grid gap-4 grid-cols-market lg:col-start-2 lg:mt-10 lg:min-h-[620px] auto-rows-min relative

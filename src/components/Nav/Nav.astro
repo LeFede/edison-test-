@@ -1,0 +1,46 @@
+---
+import type { IAcademy } from '../../env'
+import Burger from "../Svgs/Burger.tsx"
+import X from "../Svgs/X.tsx"
+
+interface Props {
+  academy: IAcademy
+}
+
+const {academy} = Astro.props
+console.log(academy.style)
+const {logo} = academy.style
+---
+
+<nav class=" max-w-container m-auto relative px-4 text-gray_25 z-50 flex justify-center gap-4 min-h-16 lg:min-h-12 py-4">
+  <div class="absolute inset-0 bg-[var(--secondary-color)] w-[4000px] -translate-x-1/2 -z-10"></div>
+  <a href="/" class="flex items-center absolute left-4 top-1/2 -translate-y-1/2">
+    <img src={"/__optimized-images/logo_1x.webp"}/>
+  </a>
+  <label for="check" class="lg:hidden cursor-pointer">
+    <Burger/>
+  </label>
+  <input id="check" type="checkbox" class="hidden"/>
+  <div class="flex gap-4 fixed flex-col bg-[var(--secondary-color)] top-0 right-0 lg:relative lg:flex-row transition-transform lg:transition-none p-4 lg:p-0 border-gray_100 border-l border-b lg:border-none">
+    <label for="check" class="lg:hidden cursor-pointer self-end"><X className='fill-gray_25 w-6'/></label>
+    <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a>
+    <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a>
+    <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a>
+  </div>
+</nav>
+
+<style>
+
+@media only screen and (max-width: 1024px) {
+  input:checked ~ div {
+    transform: translateX(0%);
+  }
+
+  input ~ div {
+    transform: translateX(100%);
+  }
+}
+
+
+  
+</style>

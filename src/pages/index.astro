@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Market from "../components/Market/Market.astro";
 import localApiPath from "../utils/localApiPath"
 import { localApi } from '../../axios';
+import Nav from "../components/Nav/Nav.astro"
 
 const [academyResult] = await Promise.all([
   localApi.get(localApiPath(Astro, "academy")),
@@ -15,12 +16,10 @@ const [academyError, academy] = academyResult.data
 
 if (academyError || !academy) errors.academy = academyError
 
-console.log(academyError)
-console.log(academy.style)
 
 ---
 <Layout academy={academy}>
-  <p class="h-[300px]">hola todobien</p>
+  <Nav academy={academy}/>
 
   {!errors.courses ? <Market server:defer> 
     <section
@@ -30,6 +29,7 @@ console.log(academy.style)
       grid grid-cols-1
       md:max-w-container
       lg:px-0 lg:grid lg:grid-cols-[200px_auto] lg:gap-x-14 lg:min-h-[800px] cursor-wait
+      my-10
     "
     >
       <div class="flex flex-col gap-1 cont">
