@@ -21,6 +21,8 @@ if (academyError || !academy) errors.academy = academyError
 <Layout academy={academy}>
   <Nav academy={academy}/>
 
+  <p class="h-[1000px]">a</p>
+
   {!errors.courses ? <Market server:defer> 
     <section
       id="marketSkeleton"
