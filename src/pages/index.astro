@@ -1,23 +1,24 @@
 ---
-export const prerender = false
 import Layout from '../layouts/Layout.astro';
 import Market from "../components/Market/Market.astro";
-import localApiPath from "../utils/localApiPath"
-import { localApi } from '../../axios';
-import Nav from "../components/Nav/Nav.astro"
+import api from '../../axios';
+import { aResult,type Result } from '@volpe/utils';
+import { ACADEMY_ID } from 'astro:env/server';
+import { type IAcademy } from "../env.d"
+import { type AxiosResponse } from 'axios';
+import Nav from '../components/Nav/Nav.astro';
 
-const [academyResult] = await Promise.all([
-  localApi.get(localApiPath(Astro, "academy")),
-]);
-
+const [err, res] = (await api.get[aResult](
+  `/academies/${ACADEMY_ID}`,
+)) as unknown as Result<AxiosResponse<IAcademy>>;
 let errors = {academy: null, courses: null, categories: null};
+if (err) throw "A"
+if (!res) throw "B"
+if (err || !res) errors.academy = err
 
-const [academyError, academy] = academyResult.data 
-
-if (academyError || !academy) errors.academy = academyError
-
-
+const {data: academy} = res 
 ---
+
 <Layout academy={academy}>
   <Nav academy={academy}/>
 

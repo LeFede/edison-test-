@@ -1,25 +1,27 @@
 ---
+export const prerender = false
 import Layout from '../layouts/Layout.astro';
 import Market from "../components/Market/Market.astro";
-import api from '../../axios';
-import { aResult,type Result } from '@volpe/utils';
-import { ACADEMY_ID } from 'astro:env/server';
-import { type IAcademy } from "../env.d"
-import { type AxiosResponse } from 'axios';
+import localApiPath from "../utils/localApiPath"
+import { localApi } from '../../axios';
+import Nav from "../components/Nav/Nav.astro"
 
-const [err, res] = (await api.get[aResult](
-  `/academies/${ACADEMY_ID}`,
-)) as unknown as Result<AxiosResponse<IAcademy>>;
+const [academyResult] = await Promise.all([
+  localApi.get(localApiPath(Astro, "academy")),
+]);
+
 let errors = {academy: null, courses: null, categories: null};
-if (err) throw "A"
-if (!res) throw "B"
-if (err || !res) errors.academy = err
 
-const {data: academy} = res 
+const [academyError, academy] = academyResult.data 
+
+if (academyError || !academy) errors.academy = academyError
+
+
 ---
-
 <Layout academy={academy}>
-  <p class="h-[200px]">hola todobien</p>
+  <Nav academy={academy}/>
+
+  <p class="h-[1000px]">a</p>
 
   {!errors.courses ? <Market server:defer> 
     <section
@@ -29,6 +31,7 @@ const {data: academy} = res
       grid grid-cols-1
       md:max-w-container
       lg:px-0 lg:grid lg:grid-cols-[200px_auto] lg:gap-x-14 lg:min-h-[800px] cursor-wait
+      my-10
     "
     >
       <div class="flex flex-col gap-1 cont">
