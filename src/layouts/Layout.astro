@@ -12,16 +12,17 @@ const {academy} = Astro.props ?? {}
 const {mainColor, secondaryColor} = academy?.style ?? {mainColor: "red", secondaryColor: "blue"}
 console.log(secondaryColor)
 
+      // favicon="https://avatars.githubusercontent.com/u/134017871?s=48&v=4.jpg"
 ---
 
 <!doctype html>
 <html lang="en" class="font-inter">
 	<head>
     <Meta
-      title="fede"
-      description="fede"
-      image="https://avatars.githubusercontent.com/u/134017871?s=48&v=4.jpg"
-      favicon="https://avatars.githubusercontent.com/u/134017871?s=48&v=4.jpg"
+      title={academy.seo.title}
+      description={academy.seo.description}
+      image={academy?.seo?.socialPreview || "https://avatars.githubusercontent.com/u/134017871?s=48&v=4.jpg"}
+      favicon="/__optimized-images/favicon_1x.png"
       url="https://avatars.githubusercontent.com/u/134017871?s=48&v=4"
     />
 	</head>
@@ -41,3 +42,4 @@ console.log(secondaryColor)
 		height: 100%;
 	}
 </style>
+

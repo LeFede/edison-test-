@@ -86,6 +86,7 @@
 //
 //
 // ////////////////////////////////////////////////////////////////////////////
+
 import sharp from "sharp";
 import fs from "fs";
 import path from "path";
@@ -127,6 +128,7 @@ if (!fs.existsSync(outputDir)) {
       fileName,
       sizes,
       keepAspectRatio = false,
+      isFavicon = false,
     ) => {
       // Verificar si imageUrl es undefined o null antes de continuar
       if (!imageUrl) {
@@ -136,9 +138,10 @@ if (!fs.existsSync(outputDir)) {
 
       for (let i = 0; i < sizes.length; i++) {
         const size = sizes[i];
+        const fileExtension = isFavicon ? "png" : "webp"; // Cambiado a png para el favicon
         const outputImagePath = path.join(
           outputDir,
-          `${fileName}_${i + 1}x.webp`,
+          `${fileName}_${i + 1}x.${fileExtension}`,
         );
 
         // Verificar si la imagen ya existe
@@ -157,13 +160,22 @@ if (!fs.existsSync(outputDir)) {
 
           // Procesar la imagen con sharp y redimensionarla según el tamaño
           // Aquí ajustamos el parámetro fit en función de si queremos mantener el aspect ratio
-          await sharp(Buffer.from(imageResponse.data))
-            .resize(size, keepAspectRatio ? null : size, {
+          const sharpImage = sharp(Buffer.from(imageResponse.data)).resize(
+            size,
+            keepAspectRatio ? null : size,
+            {
               fit: keepAspectRatio ? "inside" : "cover",
               position: "center",
-            })
-            .webp({ quality: 80 })
-            .toFile(outputImagePath);
+            },
+          );
+
+          if (isFavicon) {
+            // Para el favicon, convertimos a PNG
+            await sharpImage.png({ quality: 80 }).toFile(outputImagePath);
+          } else {
+            // Para imágenes no favicon, usar .webp
+            await sharpImage.webp({ quality: 80 }).toFile(outputImagePath);
+          }
 
           console.log(`Imagen optimizada y guardada: ${outputImagePath}`);
         } catch (error) {
@@ -194,7 +206,14 @@ if (!fs.existsSync(outputDir)) {
 
     for (const [imageType, sizes] of Object.entries(academySizes)) {
       if (academy.style && academy.style[imageType]) {
-        await processImage(academy.style[imageType], imageType, sizes, true); // keepAspectRatio set to true for academy images
+        // Solo para favicon, pasamos true para isFavicon
+        await processImage(
+          academy.style[imageType],
+          imageType,
+          sizes,
+          true,
+          imageType === "favicon",
+        );
       } else {
         console.log(
           `El campo ${imageType} para la academia.style es undefined.`,
