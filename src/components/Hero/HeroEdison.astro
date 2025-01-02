@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets"
+import laptop from "../../assets/laptop.webp"
+import { HeroCategory } from "./HeroCategory.tsx"
+import type { Category } from "../../env"
+
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props
+
+---
+
+<section class="p-4 dark py-10 font-manrope
+  bg-hero text-light
+  relative max-h-[450px] md:max-h-fit
+  lg:px-0
+  flex justify-center overflow-hidden z-30
+">
+  <Image src={laptop} alt="laptop" class="absolute bottom-0 right-0 z-10 opacity-50 lg:hidden borigin-bottom-right w-[50vw]"  
+    loading="eager"
+    widths={[200, laptop.width]}
+    sizes={`(max-width: 360px) 200px, ${laptop.width}px`}
+  />
+  <div class="
+    container mx-auto flex
+    max-w-[1400px]
+    lg:justify-between lg:items-center lg:gap-[10%]
+    relative  
+    lg:mx-[100px]
+  ">
+    <div class="absolute bg-hero-effect rounded-full w-[400px] lg:w-[600px] blur-[100px] aspect-square bottom-0 right-0 overflow-auto translate-x-1/2 lg:translate-x-[15vw] translate-y-1/2"></div>
+    <div class="lg:max-w-[50%] z-10">
+      <button class="flex items-center gap-1 bg-orangecontrast rounded-md py-[5px] px-[10px] text-xs text-white mb-4">
+        <img 
+          src={"/icons/live.svg"} 
+          alt="live" 
+          srcset="/icons/live.svg 1x, /icons/live.svg 2x"
+          width="20"
+          height="20"
+        />
+        Clases en vivo
+      </button>
+      <h1 class="
+        text-[28px]
+        md:text-[40px]
+        lg:text-[45px] lg:leading-[50px] font-extrabold mb-4">
+        Aprende de{" "}
+        <mark class="text-orange">referentes</mark></br>en{" "}
+        <mark class="text-orange">grupos exclusivos</mark>
+      </h1>
+      <h2 class="text-lg mb-8">Cursos cortos, aplicables y en vivo que potencian<br/>tu carrera profesional</h2>
+      <h3 class="hidden lg:block font-bold text-lg pb-4">¿En qué área quieres potenciarte?</h3>
+      <h3 class="block lg:hidden font-bold text-lg pb-4 w-0 absolute whitespace-nowrap">¡Elige el tuyo y comienza a crecer!</h3>
+      <ul class="gap-4 flex-wrap hidden lg:flex max-w-[80%]">
+        {categories.map((e: any) => <HeroCategory client:only name={e.value}/>)}
+      </ul>
+    </div>
+    <div class="hidden lg:flex w-[300px] aspect-[1/1] rounded-full relative video-sphere
+      after:w-full after:h-full after:absolute after:rounded-full after:blur-sm after:top-[-10px] after:right-[-10px] after:z-10
+      ">
+      <video autoplay loop muted playsinline class="rounded-full absolute z-50 w-full">
+        <source src="/videos/hero.mp4" type="video/mp4" media="(hover:hover) and (pointer: fine)"/>
+        <track default kind="descriptions" srclang="es" label="clases virtuales mostrando alumnos y profesores"/>
+        <!-- <source src="hero.mp4" type="video/mp4" media="(pointer: coarse)"/> -->
+        <!-- <source src="hero.mp4" type="video/mp4" media="(min-width: 1024px)"/> -->
+      </video>
+    </div>
+    <div class="h-[500px]"></div>
+  </div>
+</section>
+
+<style>
+  .video-sphere::after {
+    background: linear-gradient(235deg,#f50 17.14%,#bc4d41 32.53%,#934e66 52.72%,#715782 71.25%,#666787 86.22%);
+  }
+</style>

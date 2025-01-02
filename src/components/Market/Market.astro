@@ -26,33 +26,13 @@ let errors = {academy: null, courses: null, categories: null};
 
 const [coursesError, courses] = coursesResult.data
 const [academyError, academy] = academyResult.data;
-const [categoriesError, allCategories] = categoriesResult.data;
+const [categoriesError, categories] = categoriesResult.data;
 
 if (coursesError || !courses) errors.courses = coursesError
 if (academyError || !academy) errors.academy = academyError
-if (categoriesError || !allCategories) errors.categories = categoriesError
+if (categoriesError || !categories) errors.categories = categoriesError
 
-let categories = allCategories?.filter((e: any) => e.academyId === academy?.id);
-
-let filteredCourses = courses
-
-filteredCourses = courses.sort((a: Course, b: Course) => {
-  const getPriority = (course: any) => {
-    if (!course.config.isAsync && !course.comingSoon) return 0; // Primero
-    if (course.config.isAsync && !course.comingSoon) return 1; // Segundo
-    if (!course.config.isAsync && course.comingSoon) return 2; // Último
-  };
-
-  // @ts-ignore
-  return getPriority(a) - getPriority(b);
-});
-
-filteredCourses = filteredCourses.filter((course: Course) => {
-  if (course.comingSoon) return true
-  const time = course.events[0].startTime;
-  return timeLeft(time, "hours") > -24 
-});
-
+// let categories = allCategories?.filter((e: any) => e.academyId === academy?.id);
 
 // await wait(100)
 
@@ -77,5 +57,17 @@ filteredCourses = filteredCourses.filter((course: Course) => {
   my-10
 "
 >
-  <ClientMarket courses={filteredCourses} client:visible firstShowed={FIRST_SHOWED} categories={categories}/>
+  <ClientMarket courses={courses} client:visible firstShowed={FIRST_SHOWED} categories={categories}/>
 </section>
+
+<style>
+  div {
+    /* content: ""; */
+    /* top: 0; */
+    /* left: 0; */
+    /* background: red; */
+    /* width: 200%; */
+    /* height: 900%; */
+    /* transform: translateX(-25%); */
+  }
+</style>

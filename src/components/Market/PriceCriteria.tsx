@@ -13,6 +13,7 @@ import {
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
 import { useStore } from "@nanostores/react";
 import { animateScroll } from "react-scroll";
+import { scrollToMarket } from "../../utils/scrollToMarket";
 
 interface Props {}
 
@@ -49,14 +50,7 @@ const PriceCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
-
-              const isMobile = window.innerWidth < 1024;
-
-              if (isScrolling.get()) return;
-              animateScroll.scrollTo(isMobile ? 300 : 380, {
-                duration: 200,
-                smooth: false,
-              });
+              scrollToMarket();
             }}
             name="0-75"
           />
@@ -71,13 +65,7 @@ const PriceCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
-              const isMobile = window.innerWidth < 1024;
-
-              if (isScrolling.get()) return;
-              animateScroll.scrollTo(isMobile ? 300 : 380, {
-                duration: 200,
-                smooth: false,
-              });
+              scrollToMarket();
             }}
             name="75-120"
           />
@@ -92,13 +80,7 @@ const PriceCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
-              const isMobile = window.innerWidth < 1024;
-
-              if (isScrolling.get()) return;
-              animateScroll.scrollTo(isMobile ? 300 : 380, {
-                duration: 200,
-                smooth: false,
-              });
+              scrollToMarket();
             }}
             name="120-175"
           />
@@ -113,13 +95,7 @@ const PriceCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
-              const isMobile = window.innerWidth < 1024;
-
-              if (isScrolling.get()) return;
-              animateScroll.scrollTo(isMobile ? 300 : 380, {
-                duration: 200,
-                smooth: false,
-              });
+              scrollToMarket();
             }}
             name="mas-de-175"
           />

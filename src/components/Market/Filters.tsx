@@ -10,6 +10,7 @@ import {
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
 import { animateScroll } from "react-scroll";
 import Arrow from "../Svgs/Arrow.tsx";
+import { scrollToMarket } from "../../utils/scrollToMarket.ts";
 
 interface AnyChildren {
   children: React.ReactNode;
@@ -42,6 +43,8 @@ const Filters: FiltersComponent = ({ children }) => {
       className="gap-x-1 lg:col-span-1 lg:col-start-1 lg:row-span-5 sticky top-14 grid grid-cols-4 xs:gap-x-3 gap-y-2 
       grid-flow-dense select-none
       z-10 lg:block lg:h-min
+ before:content-[''] before:absolute before:bg-white before:top-0 before:left-0 before:w-[200%] before:h-[1000px] before:transform before:-translate-x-1/4 before:-translate-y-[95%] before:-z-10
+      lg:before:hidden
         "
     >
       {children}
@@ -132,13 +135,7 @@ const Category: React.FC<CategoryProps> = ({ value, amount }) => {
           onChange={(e) => {
             handleCheckboxChange(e);
             showAllCourses.set(true);
-
-            const isMobile = window.innerWidth < 1024;
-            if (isScrolling.get()) return;
-            animateScroll.scrollTo(isMobile ? 300 : 380, {
-              duration: 200,
-              smooth: false,
-            });
+            scrollToMarket();
           }}
           hidden
         />

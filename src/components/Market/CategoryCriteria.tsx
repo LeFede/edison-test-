@@ -15,7 +15,9 @@ interface Props {
   courses: Course[];
 }
 
-function countCoursesByCategory(courses: Course[]): Record<string, number> {
+export function countCoursesByCategory(
+  courses: Course[],
+): Record<string, number> {
   return courses.reduce(
     (acc, course) => {
       const category = course.category.value;

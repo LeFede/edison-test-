@@ -15,6 +15,7 @@ import {
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
 import { useStore } from "@nanostores/react";
 import { animateScroll } from "react-scroll";
+import { scrollToMarket } from "../../utils/scrollToMarket";
 
 interface Props {}
 
@@ -50,13 +51,7 @@ const DurationCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
-              const isMobile = window.innerWidth < 1024;
-
-              if (isScrolling.get()) return;
-              animateScroll.scrollTo(isMobile ? 300 : 380, {
-                duration: 200,
-                smooth: false,
-              });
+              scrollToMarket();
             }}
             name="1-clase"
           />
@@ -71,14 +66,7 @@ const DurationCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
-
-              const isMobile = window.innerWidth < 1024;
-
-              if (isScrolling.get()) return;
-              animateScroll.scrollTo(isMobile ? 300 : 380, {
-                duration: 200,
-                smooth: false,
-              });
+              scrollToMarket();
             }}
             name="2-a-4-clases"
           />
@@ -93,14 +81,7 @@ const DurationCriteria: React.FC<Props> = () => {
             onChange={(e) => {
               handleCheckboxChange(e);
               showAllCourses.set(true);
-
-              const isMobile = window.innerWidth < 1024;
-
-              if (isScrolling.get()) return;
-              animateScroll.scrollTo(isMobile ? 300 : 380, {
-                duration: 200,
-                smooth: false,
-              });
+              scrollToMarket();
             }}
             name="mas-de-4-clases"
           />

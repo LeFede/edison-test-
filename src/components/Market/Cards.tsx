@@ -17,6 +17,7 @@ import {
 } from "../../store";
 import { useUrlInputAtom, useUrlInputAtomDebounce } from "@volpe/react-utils";
 import X from "../Svgs/X";
+import { scrollToMarket } from "../../utils/scrollToMarket";
 
 interface Props {
   courses: Course[];
@@ -136,14 +137,7 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
             onChange={(e) => {
               onChange(e);
               showAllCourses.set(true);
-
-              const isMobile = window.innerWidth < 1024;
-
-              if (isScrolling.get()) return;
-              scroll.scrollTo(isMobile ? 300 : 380, {
-                duration: 200,
-                smooth: false,
-              });
+              scrollToMarket();
             }}
             value={$searchBar}
             type="text"
@@ -156,7 +150,7 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
           {$searchBar.length > 0 && (
             <X
               // className="absolute right-0 cursor-pointer px-4 py-2.5 text-gray_500 hover:text-gray_900"
-              className="absolute right-4 top-2 w-4"
+              className="absolute right-4 top-2 w-4 cursor-pointer"
               onClick={() => {
                 searchBar.set("");
                 updateQuery("search", "");

@@ -5,25 +5,38 @@ import Market from "../components/Market/Market.astro";
 import localApiPath from "../utils/localApiPath"
 import { localApi } from '../../axios';
 import Nav from "../components/Nav/Nav.astro"
+import HeroEdison from '../components/Hero/HeroEdison.astro';
+import marketIsEdison from '../utils/marketIsEdison';
+import Hero from "../components/Hero/Hero.astro"
 
-const [academyResult] = await Promise.all([
+const [academyResult, categoriesResult] = await Promise.all([
   localApi.get(localApiPath(Astro, "academy")),
+  localApi.get(localApiPath(Astro, "categories")),
 ]);
 
 let errors = {academy: null, courses: null, categories: null};
 
 const [academyError, academy] = academyResult.data 
+const [categoriesError, categories] = categoriesResult.data 
 
 if (academyError || !academy) errors.academy = academyError
+if (categoriesError || !categories) errors.categories = categoriesError
 
+const isEdison = marketIsEdison(academy.uuid)
 
 ---
 <Layout academy={academy}>
   <Nav academy={academy}/>
+  {isEdison && <HeroEdison categories={categories}/>}
+  {!isEdison && <Hero academy={academy}/>}
 
-  <p class="h-[1000px]">a</p>
-
-  {!errors.courses ? <Market server:defer> 
+  <!-- 
+  Lo de dentro del Market es el skeleton, por eso tiene el slot="fallback"
+  si este componente NO tiene server:defer osea -> <Market server:defer>
+  NO se va a mostrar el skeleton porque el contenido ya viene todo del sv 
+  sin diferirlo
+  -->
+  {!errors.courses ? <Market> 
     <section
       id="marketSkeleton"
       slot="fallback"

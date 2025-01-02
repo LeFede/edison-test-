@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets"
+import type { IAcademy } from "../../env"
+interface Props {
+  academy: IAcademy
+}
+
+const {academy} = Astro.props
+const { heroDesk, heroMobile } = academy.style
+
+const srcset = [
+  `/__optimized-images/heroDesk_2x.webp 1x`,
+  `/__optimized-images/heroDesk_2x.webp 2x`,
+  `/__optimized-images/heroDesk_3x.webp 3x`,
+].join(", ");
+
+const srcsetMobile = [
+  `/__optimized-images/heroMobile_2x.webp 1x`,
+  `/__optimized-images/heroMobile_2x.webp 2x`,
+  `/__optimized-images/heroMobile_3x.webp 3x`,
+].join(", ");
+---
+
+<section class=" dark font-manrope
+  dark:bg-hero dark:text-light
+  relative bg-cover bg-center z-20
+  
+" >
+  {heroDesk && <img src={"/__optimized-images/heroDesk_2x.webp"} srcset={srcset} alt="hero desk" width={300} height={300} class="hidden sm:block w-full min-h-[400px] object-cover"/>}
+  {heroMobile && <img src={"/__optimized-images/heroMobile_2x.webp"} srcset={srcsetMobile} alt="hero mobile" width={300} height={300} class="block sm:hidden w-full"/>}
+</section>
+

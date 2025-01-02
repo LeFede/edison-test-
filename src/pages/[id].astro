@@ -1,0 +1,27 @@
+---
+export const prerender = false;
+import api from "../../axios";
+// import { api_qa, axiosResultAll, type Result } from "../utils";
+
+import { type Result } from "@volpe/utils";
+
+import { type Course } from "../env.d";
+
+const [courseResult] = (await Promise.all([
+  api.get(`/courses/${Astro.params.id}/landing`),
+]))
+
+console.log(courseResult)
+// if (error) return Astro.redirect(`/`);
+
+const course = courseResult.data
+
+if (course.crmRid) {
+  return Astro.redirect(
+    `https://eventos.somosedison.com/landing-curso?rid=${course?.crmRid}`
+  );
+} else {
+  return Astro.redirect(`/`);
+}
+---
+
