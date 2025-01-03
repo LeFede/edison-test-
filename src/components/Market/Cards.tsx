@@ -168,9 +168,7 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
             <div className="col-span-3 place-items-center  w-full">
               <img src={"/astronaut/luna.webp"} className="min-h-10" />
 
-              <p className="mt-10">
-                Aún estamos esperando al resto de la tripulación 🚀🌙
-              </p>
+              <p className="mt-10">Aún no hay cursos disponibles 🚀🌙</p>
             </div>
           </>
         ) : (
@@ -178,7 +176,9 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
             <>
               <div className="col-span-3 place-items-center  w-full">
                 <img src={"/astronaut/astronaut.webp"} className="min-h-10" />
-                <p className="mt-10">No encontramos ese planeta 😢🪐🚀</p>
+                <p className="mt-10">
+                  No encontramos cursos con esos filtros 😢🪐🚀
+                </p>
               </div>
             </>
           )
