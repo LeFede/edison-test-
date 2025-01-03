@@ -23,7 +23,7 @@ const methodologies = [
     lg:mx-[100px]- 
   `}>
     <h4 class="h4 text-center font-bold text-3xl text-violet w-full mb-4">La mejor forma de aprender</h4>
-    <lite-youtube videoid="egrcFT1y-Z0"></lite-youtube>
+    <lite-youtube videoid="egrcFT1y-Z0" class="rounded-lg"></lite-youtube>
     <ul class="ul h-full flex flex-col justify-center gap-8">
       {methodologies.map(([src, title, text]) => <li class="li grid gap-2 justify-start">
         <img src={`/legacy/${src}.svg`} alt={src} class="img place-self-center" width="60" height="60" loading="lazy"/><p class="font-bold">{title}</p><p class="text-sm p">{text}</p>
