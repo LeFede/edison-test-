@@ -33,6 +33,7 @@ export const GET: APIRoute = async (_ctx) => {
 
   filteredCourses = filteredCourses.filter((course: Course) => {
     if (course.comingSoon) return true;
+    if (course.isAsync) return true;
     const time = course.events[0].startTime;
     return timeLeft(time, "hours") > -24;
   });
