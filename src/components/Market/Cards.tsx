@@ -119,7 +119,7 @@ const Cards: React.FC<Props> = ({ courses, firstShowed }) => {
 
   return (
     <>
-      <div className="lg:col-start-2 row-start-1 lg:row-start-auto mb-4 lg:mb-0 z-20 sticky top-16 lg:-top-0">
+      <div className="lg:col-start-2 row-start-1 lg:row-start-auto mb-4 lg:mb-0 z-20 sticky top-16 lg:top-2">
         <label
           htmlFor="market-input"
           className="text-4xl font-semibold mb-2 hidden lg:block"
