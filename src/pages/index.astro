@@ -8,6 +8,12 @@ import Nav from "../components/Nav/Nav.astro"
 import HeroEdison from '../components/Hero/HeroEdison.astro';
 import marketIsEdison from '../utils/marketIsEdison';
 import Hero from "../components/Hero/Hero.astro"
+import Brands from "../components/Brands/Brands.astro"
+import Methodology from "../components/Methodology/Methodology.astro"
+import QA from "../components/QA/QA.astro"
+import Media from "../components/Media/index.astro"
+import Reviews from "../components/Reviews/index.astro"
+import Footer from "../components/Footer/Footer.astro"
 
 const [academyResult, categoriesResult] = await Promise.all([
   localApi.get(localApiPath(Astro, "academy")),
@@ -26,9 +32,22 @@ const isEdison = marketIsEdison(academy.uuid)
 
 ---
 <Layout academy={academy}>
-  <Nav academy={academy}/>
+  {isEdison && <Nav academy={academy} 
+    links={[
+      ["/", "Cursos", {}],
+      ["https://webinar.somosedison.com", "Eventos", {}],
+      ["https://eventos.somosedison.com/crea_tu_curso", "Crear mi curso", {}],
+      ["https://eventos.somosedison.com/cursos-para-empresas", "Empresas", {}],
+    ] as const}
+  />}
+  {!isEdison && <Nav academy={academy} links={[]}/>}
+  <div class="h-16 lg:h-20"></div>
+
   {isEdison && <HeroEdison categories={categories}/>}
+  {isEdison && <Brands classes="hidden lg:block"/>}
+
   {!isEdison && <Hero academy={academy}/>}
+
 
   <!-- 
   Lo de dentro del Market es el skeleton, por eso tiene el slot="fallback"
@@ -113,10 +132,51 @@ const isEdison = marketIsEdison(academy.uuid)
       </div>
     </section>
   </Market> : "Error con los cursos"}
-  <p class="h-[1000px]">a</p>
 
-  <p>{errors.academy ? "Error con la academia" : "academia bien jej"}</p>
-  <p>{errors.categories ? "Error con las categorias" : "cat bien jej"}</p>
+  {isEdison && <Methodology landing={true}/>}
+
+  {isEdison && <Reviews/>}
+  {isEdison && <QA/>}
+  {isEdison && <Media/>}
+
+  {isEdison && <Brands classes="block lg:hidden"/>}
+
+{isEdison && 
+          <Footer 
+            mainColor={academy.style.secondaryColor}  //  ?? academy.style.mainColor
+            logo={academy.style.logo} 
+            sub="Ed is online S.A.S."
+            contact={[
+              ["linkedin", "https://www.linkedin.com/company/somosedison/"],
+              ["whatsapp", "https://api.whatsapp.com/send/?phone=5491123913070&text&type=phone_number&app_absent=0"],
+              ["instagram", "https://www.instagram.com/somos.edison/"]
+            ] as const}
+            links={[
+              ["/", "Cursos", false],
+              ["https://webinar.somosedison.com", "Eventos", false],
+              ["https://eventos.somosedison.com/crea_tu_curso", "Crear mi curso", false],
+              ["https://eventos.somosedison.com/cursos-para-empresas", "Empresas", false],
+            ] as const}
+            legal={[
+              ["Términos y condiciones", "https://eventos.somosedison.com/terminos_y_condiciones"],
+              ["Política de privacidad", "https://eventos.somosedison.com/politica_privacidad"]
+            ]}  
+          />
+
+}
+
+  {!isEdison && 
+
+          <Footer 
+            mainColor={academy.style.secondaryColor} 
+            logo={academy.style.logo} 
+            contact={[]}
+            sub={academy.seo.title}
+            links={[]}
+            legal={[]}
+          />
+
+  }
 </Layout>
 
 <style>
@@ -139,3 +199,53 @@ const isEdison = marketIsEdison(academy.uuid)
   animation: wave-color 3s ease infinite;
 }
 </style>
+
+<!-- Google Tag Manager -->
+<script is:inline>
+(function(w, d, s, l, i) {
+  w[l] = w[l] || [];
+  w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+  var f = d.getElementsByTagName(s)[0],
+    j = d.createElement(s),
+    dl = l != 'dataLayer' ? '&l=' + l : '';
+  j.async = true;
+  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+  f?.parentNode?.insertBefore(j, f); // Se usa "?" para manejar null/undefined
+})(window, document, 'script', 'dataLayer', 'GTM-MX4FFW3');
+</script>
+
+<!-- Hotjar -->
+<script is:inline>
+  (function(h, o, t, j, a, r) {
+    h.hj = h.hj || function() { (h.hj.q = h.hj.q || []).push(arguments); };
+    h._hjSettings = { hjid: 3733676, hjsv: 6 };
+    a = o.getElementsByTagName('head')[0];
+    r = o.createElement('script');
+    r.async = true;
+    r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+    a.appendChild(r);
+  })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+</script>
+
+<!-- Clarity -->
+<script is:inline>
+  (function(c, l, a, r, i, t, y) {
+    c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments); };
+    t = l.createElement(r); 
+    t.async = true; 
+    t.src = "https://www.clarity.ms/tag/" + i; 
+    y = l.getElementsByTagName(r)[0]; 
+    y?.parentNode?.insertBefore(t, y);
+  })(window, document, "clarity", "script", "l1opfemh7e");
+
+  // Opcional: Configuración personalizada de Clarity
+  clarity("set", "Page", "Marketplace");
+</script>
+
+<script id="google-analytics" is:inline>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MX4FFW3');
+</script>

@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets"
+import { media } from "./media.ts"
+---
+
+<div class="w-full items-center sm:pb-8 hidden md:flex">
+  {media.map(([src, alt, href]) => {
+    return <a href={href} target="_blank" rel="noopener noreferrer" class="flex-1 justify-center flex">
+      <Image src={src} alt={alt} class="max-w-32" loading="lazy"/>
+    </a>
+  })}
+</div>
+

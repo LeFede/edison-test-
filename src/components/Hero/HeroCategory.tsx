@@ -1,6 +1,5 @@
 import { selectedCategories, showAllCourses } from "../../store";
 import { useUrlCheckboxAtom } from "@volpe/react-utils";
-import { animateScroll as scroll } from "react-scroll";
 import { scrollToMarket } from "../../utils/scrollToMarket";
 
 export const HeroCategory = ({ name }: { name: string }) => {
@@ -8,13 +7,14 @@ export const HeroCategory = ({ name }: { name: string }) => {
     selectedCategories,
     "categorias",
   );
+
   const scrollToElement = () => {
     scrollToMarket();
-
     showAllCourses.set(true);
   };
+
   return (
-    <li onClick={scrollToElement}>
+    <div onClick={scrollToElement}>
       <input
         type="checkbox"
         name={name}
@@ -30,6 +30,6 @@ export const HeroCategory = ({ name }: { name: string }) => {
       >
         {name.toUpperCase()}
       </label>
-    </li>
+    </div>
   );
 };

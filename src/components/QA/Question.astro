@@ -1,0 +1,17 @@
+<div class="border border-gray rounded-lg my-2 border-opacity-15 w-full transition-opacity">
+  <details class=" marker:invisible rounded-lg overflow-hidden">
+    <summary class="p-4 pb-4 text-lg justify-between cursor-pointer flex w-full relative items-center">
+      <span class="pr-4 flex flex-wrap">
+        <p class="pr-4 text-violet w-full text-sm">{Astro.props.title}</p>
+        <p class="font-medium">
+          {Astro.props.question}
+        </p>
+      </span>
+      <div class="rotate-[270deg] transition-all aspect-square flex justify-center items-center text-sm font-bold" style="transform-origin: 50% 60%;">⧼</div>
+    </summary>
+  </details>
+  <p class="
+    text-gray text-lg px-4
+    max-h-0 overflow-hidden opacity-0 transition-all
+  "><slot/><span class="block invisible leading-3">.</span></p>
+</div>

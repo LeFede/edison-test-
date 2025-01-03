@@ -5,9 +5,10 @@ import X from "../Svgs/X.tsx"
 
 interface Props {
   academy: IAcademy
+  links: [string, string, any][];
 }
 
-const {academy} = Astro.props
+const {academy, links} = Astro.props
 // const {logo} = academy.style
 
 const srcset = [
@@ -15,30 +16,43 @@ const srcset = [
   `/__optimized-images/logo_2x.webp 2x`,
   `/__optimized-images/logo_3x.webp 3x`,
 ].join(", ");
+
+const { url: { pathname } } = Astro
+const isActive = (route: string) => pathname === route ? 'lg:bg-violet text-light lg:pointer-events-none' : ''
 ---
 
-<nav class=" max-w-container m-auto relative px-4 text-gray_25 z-50 flex justify-center gap-4 min-h-16 lg:min-h-12 py-4">
-  <div class="absolute inset-0 bg-[var(--secondary-color)] w-[4000px] -translate-x-1/2 -z-10"></div>
-  <a href="/" aria-label="link to main" class="flex items-center absolute left-4 top-1/2 -translate-y-1/2">
-    <img 
-      alt={`${academy.name} logo`} 
-      src={"/__optimized-images/logo_2x.webp"} 
-      width="100" height="27"
-      srcset={srcset}
-      loading="lazy"
-    />
-  </a>
-  <label for="check" class="lg:hidden cursor-pointer">
-    <Burger/>
-  </label>
-  <input id="check" type="checkbox" class="hidden"/>
-  <div class="flex gap-4 fixed flex-col bg-[var(--secondary-color)] top-0 right-0 lg:relative lg:flex-row transition-transform lg:transition-none p-4 lg:p-0 border-gray_100 border-l border-b lg:border-none">
-    <label for="check" class="lg:hidden cursor-pointer self-end"><X className='fill-gray_25 w-6'/></label>
-    <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a>
-    <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a>
-    <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a>
-  </div>
-</nav>
+<div class="fixed top-0 w-full z-50 min-h-20">
+  <nav class=" max-w-container m-auto relative px-4 text-gray_25 z-50 flex justify-center gap-4 min-h-16 lg:min-h-20 py-4">
+    <div class="absolute inset-0 bg-[var(--secondary-color)] w-[4000px] -translate-x-1/2 -z-10"></div>
+    <a href="/" aria-label="link to main" class="flex items-center absolute left-4 top-1/2 -translate-y-1/2">
+      <img 
+        alt={`${academy.name} logo`} 
+        src={"/__optimized-images/logo_2x.webp"} 
+        width="100" height="27"
+        srcset={srcset}
+        loading="lazy"
+      />
+    </a>
+    <label for="check" class="lg:hidden cursor-pointer">
+      <Burger/>
+    </label>
+    <input id="check" type="checkbox" class="hidden"/>
+    <div class="flex gap-4 fixed flex-col bg-[var(--secondary-color)] top-0 right-0 lg:relative lg:flex-row transition-transform lg:transition-none p-4 lg:p-0 border-gray_100 border-l border-b lg:border-none">
+      <label for="check" class="lg:hidden cursor-pointer self-end"><X className='fill-gray_25 w-6'/></label>
+      <!-- <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a> -->
+      <!-- <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a> -->
+      <!-- <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a> -->
+      {links.map(([href, text, props]) => <a 
+              href={href}
+              class={`
+                lg:p-3 lg:px-5 lg:hover:bg-gray lg:rounded-lg lg:hover:text-light
+                ${isActive(href)}
+              `}
+              {...props}
+            >{text}</a>)}
+    </div>
+  </nav>
+</div>
 
 <style>
 

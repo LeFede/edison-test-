@@ -40,7 +40,7 @@ interface FiltersComponent extends React.FC<AnyChildren> {
 const Filters: FiltersComponent = ({ children }) => {
   return (
     <aside
-      className="gap-x-1 lg:col-span-1 lg:col-start-1 lg:row-span-5 sticky top-14 grid grid-cols-4 xs:gap-x-3 gap-y-2 
+      className="gap-x-1 lg:col-span-1 lg:col-start-1 lg:row-span-5 sticky top-28 grid grid-cols-4 xs:gap-x-3 gap-y-2 
       grid-flow-dense select-none
       z-10 lg:block lg:h-min
  before:content-[''] before:absolute before:bg-white before:top-0 before:left-0 before:w-[200%] before:h-[1000px] before:transform before:-translate-x-1/4 before:-translate-y-[95%] before:-z-10

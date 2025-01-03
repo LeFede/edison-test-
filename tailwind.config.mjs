@@ -10,7 +10,7 @@ export default {
         xs: "375px",
       },
       maxWidth: {
-        container: "1100px",
+        container: "1200px",
       },
       gridTemplateColumns: {
         market: "repeat(auto-fill, minmax(min(270px, 450px), 1fr))",

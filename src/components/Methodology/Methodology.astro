@@ -1,0 +1,36 @@
+
+---
+
+const {landing} = Astro.props
+
+const methodologies = [
+  ["insight", "INSIGHTS EXCLUSIVOS", "Contenido diseñado para compartir cómo trabajan los referentes de las empresas más innovadoras"],
+  ["aprendizaje", "APRENDIZAJE EN EQUIPO", "Genera vínculos y conexiones reales, a través de grupos pequeños, para crecer gracias al apoyo de tus pares"],
+  ["contenido", "CONTENIDOS APLICABLES", "Trabajarás sobre proyectos propios aplicando todo lo aprendido a casos reales"]
+]
+---
+
+<section class="
+    w-full flex p-4 py-10 z-50
+    lg:px-0  justify-center mt-10
+">
+  <div class={`
+    grid grid-cols-1 
+    lg:grid-cols-2 
+    gap-8
+    container mx-auto items-center relative
+    max-w-container flex-wrap ${landing ? "div" : "div"}
+    lg:mx-[100px]- 
+  `}>
+    <h4 class="h4 text-center font-bold text-3xl text-violet w-full mb-4">La mejor forma de aprender</h4>
+    <lite-youtube videoid="egrcFT1y-Z0"></lite-youtube>
+    <ul class="ul h-full flex flex-col justify-center gap-8">
+      {methodologies.map(([src, title, text]) => <li class="li grid gap-2 justify-start">
+        <img src={`/legacy/${src}.svg`} alt={src} class="img place-self-center" width="60" height="60" loading="lazy"/><p class="font-bold">{title}</p><p class="text-sm p">{text}</p>
+      </li>)}
+    </ul>
+  </div>
+</section>
+<script>
+  import "@justinribeiro/lite-youtube";
+</script>

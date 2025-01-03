@@ -25,14 +25,14 @@ const { categories } = Astro.props
   />
   <div class="
     container mx-auto flex
-    max-w-[1400px]
+    max-w-container
     lg:justify-between lg:items-center lg:gap-[10%]
     relative  
     lg:mx-[100px]
   ">
     <div class="absolute bg-hero-effect rounded-full w-[400px] lg:w-[600px] blur-[100px] aspect-square bottom-0 right-0 overflow-auto translate-x-1/2 lg:translate-x-[15vw] translate-y-1/2"></div>
     <div class="lg:max-w-[50%] z-10">
-      <button class="flex items-center gap-1 bg-orangecontrast rounded-md py-[5px] px-[10px] text-xs text-white mb-4">
+      <button class="flex items-center gap-1 bg-orangecontrast rounded-md py-[5px] px-[10px] text-xs text-white mb-4 cursor-default">
         <img 
           src={"/icons/live.svg"} 
           alt="live" 
@@ -53,9 +53,12 @@ const { categories } = Astro.props
       <h2 class="text-lg mb-8">Cursos cortos, aplicables y en vivo que potencian<br/>tu carrera profesional</h2>
       <h3 class="hidden lg:block font-bold text-lg pb-4">¿En qué área quieres potenciarte?</h3>
       <h3 class="block lg:hidden font-bold text-lg pb-4 w-0 absolute whitespace-nowrap">¡Elige el tuyo y comienza a crecer!</h3>
-      <ul class="gap-4 flex-wrap hidden lg:flex max-w-[80%]">
-        {categories.map((e: any) => <HeroCategory client:only name={e.value}/>)}
-      </ul>
+      <div class="gap-4 flex-wrap hidden lg:flex max-w-[80%]">
+        {categories.map((e: any) => {
+          if (e.value == "Otros") return 
+          return <HeroCategory client:only name={e.value}/>
+        })}
+      </div>
     </div>
     <div class="hidden lg:flex w-[300px] aspect-[1/1] rounded-full relative video-sphere
       after:w-full after:h-full after:absolute after:rounded-full after:blur-sm after:top-[-10px] after:right-[-10px] after:z-10

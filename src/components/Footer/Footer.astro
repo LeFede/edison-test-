@@ -1,0 +1,69 @@
+---
+interface Props {
+  mainColor: string;
+  logo: string;
+  contact: [string, string][];
+  sub: string;
+  links: [string, string, boolean][]
+  legal: [string, string][]
+}
+
+const { mainColor, logo, contact, sub, links, legal } = Astro.props
+const log = `/__optimized-images/logo_2x.webp`
+
+---
+<footer class="
+  dark
+  w-full 
+  p-4 min-h-[80px] flex py-16
+  dark:text-light
+"
+  style={{backgroundColor: mainColor}}
+>
+  <nav class="
+    container mx-auto
+    max-w-container lg:flex lg:flex-wrap lg:gap-36
+  ">
+    <div class="flex-1">
+      <a href="/" class="block mb-8">
+        <img src={log} alt="logo" class="max-w-40" width="160" height="43" loading="lazy"/>
+      </a>
+      <hr class="hidden lg:block lg:w-1/2 mb-4"/>
+      <p class="hidden lg:block">{sub}</p>
+    </div>
+    <ul class="
+      flex flex-1 gap-4 flex-wrap
+    ">
+      {links.map(([href, text, blank]) => <li class="w-3/4"><a 
+        href={href}
+        {...(blank && {target: "_blank", rel: "noopener noreferrer"})}
+        class={` 
+          py-2 text-lg
+          hover:font-bold
+        `}
+      >{text}</a></li>)}
+    </ul>
+    <hr class="lg:hidden lg:w-1/2 my-8"/>
+    <p class="lg:hidden">{sub}</p>
+    <div class="my-4 flex-1 flex gap-4 lg:justify-end lg:my-0">
+      {contact.map(([name, href]) => {
+        return <a href={href} class="block w-fit" target="_blank" rel="noopener noreferrer">
+          <img src={`/legacy/${name}.svg`} alt={`${name} contact`} width="34" height="34" class="hover:scale-110 transition-all transform-gpu" loading="lazy"/>
+        </a>
+      })}
+    </div>
+    <div class="w-full text-center text-sm lg:text-base">
+    { 
+      legal
+        .map(([text, link], i) => {
+          return <>
+            <a href={link} target="_blank" rel="noopener noreferrer" class="hover:font-semibold">
+              <span>{text}</span>
+            </a>
+            {i !== legal.length - 1 && "|" }
+          </>
+        })
+    }
+    </div>
+  </nav>
+</footer>
