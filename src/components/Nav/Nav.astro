@@ -1,5 +1,6 @@
 ---
 import type { IAcademy } from '../../env'
+import marketIsEdison from '../../utils/marketIsEdison';
 import Burger from "../Svgs/Burger.tsx"
 import X from "../Svgs/X.tsx"
 
@@ -33,11 +34,19 @@ const isActive = (route: string) => pathname === route ? 'lg:bg-violet text-ligh
         loading="lazy"
       />
     </a>
+    
+    <a 
+      href="https://app.somosedison.com/" 
+      target="_blank"
+      aria-label="link to main" 
+      class="items-center absolute right-4 top-1/2 -translate-y-1/2 lg:p-3 lg:px-5 lg:hover:bg-gray lg:rounded-lg lg:hover:text-light rounded-lg border border-gray_25 p-3 hidden lg:flex">
+      Plataforma
+    </a>
     <label for="check" class="lg:hidden cursor-pointer">
       <Burger/>
     </label>
     <input id="check" type="checkbox" class="hidden"/>
-    <div class="flex gap-4 fixed flex-col bg-[var(--secondary-color)] top-0 right-0 lg:relative lg:flex-row transition-transform lg:transition-none p-4 lg:p-0 border-gray_100 border-l border-b lg:border-none">
+    <div class="flex gap-4 fixed flex-col bg-[var(--secondary-color)] top-0 right-0 lg:relative lg:flex-row transition-transform lg:transition-none p-8  py-4 lg:p-0 border-gray_100 border-l border-b lg:border-none">
       <label for="check" class="lg:hidden cursor-pointer self-end"><X className='fill-gray_25 w-6'/></label>
       <!-- <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a> -->
       <!-- <a href="tal" class="flex items-center px-5 py-3 hover:bg-[#fff3] rounded-lg">Tremendo</a> -->
@@ -50,6 +59,15 @@ const isActive = (route: string) => pathname === route ? 'lg:bg-violet text-ligh
               `}
               {...props}
             >{text}</a>)}
+
+      {marketIsEdison(academy.uuid) && <>
+        <hr class="opacity-20 lg:hidden">
+        <a 
+          href="https://app.somosedison.com/" 
+          target="_blank"
+          class="lg:p-3 lg:px-5 lg:hover:bg-gray lg:rounded-lg lg:hover:text-light rounded-lg border border-gray_25 p-3 lg:hidden"
+        >Plataforma</a>
+        </>}
     </div>
   </nav>
 </div>
